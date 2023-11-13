@@ -22,3 +22,6 @@
 npm-debug.log*
 yarn-debug.log*git
 yarn-error.log*
+
+.env
+.vscode
