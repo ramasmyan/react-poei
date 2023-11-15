@@ -1,24 +1,13 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import axios from "axios";
 
+const proxy = "http://localhost:3000";
 const API_URL = "/users"
 const registerUser = async (registerForm)=>{
-    try {
-        const response = await fetch('/register',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: registerForm
-            }
-        )
-        const data = await response.json();
-        if (response.status === 200) {
-            localStorage.setItem('user',JSON.stringify(data.data));
-            return data;
-        }
-    } catch (error) {
-        return error;
+    const response =  await axios.post(`${proxy}${API_URL}/register`,registerForm);
+    const data = await response.data;
+    if (response.status === 201) {
+        localStorage.setItem('user',JSON.stringify(data.data));
+        return data;
     }
 }
 

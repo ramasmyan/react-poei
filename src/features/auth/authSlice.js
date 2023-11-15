@@ -7,9 +7,9 @@ const user = JSON.parse(localStorage.getItem('user'));
 export const registerUser = createAsyncThunk(
     "/register",async (userFormData,thunkAPI) => {
         try {
-            return  await AuthServices.registerUser(userFormData);
+           return await AuthServices.registerUser(userFormData);
         } catch (error) {
-            const message = (error.error && error.error.message) || error.message || error.error;
+            const message =  "Something went wrong";
             return thunkAPI.rejectWithValue(message);
         }
     })
@@ -37,8 +37,25 @@ const auhtSlice = createSlice({
             state.isLoading = false;
         }
     },
-    extraReducers: {
-
+    extraReducers: (builder) => {
+        builder.addCase(registerUser.pending, (state, action) => {
+            state.isLoading = true;
+            console.log("authSlice","ici")
+        });
+        builder.addCase(registerUser.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true;
+            console.log("authSlice 2",action.payload)
+            state.message = action.payload.message;
+            state.user = action.payload.user;
+            localStorage.setItem('user',JSON.stringify(action.payload.data));
+        });
+        builder.addCase(registerUser.rejected, (state, action) => {
+            console.log("authSliceError",action.payload)
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+        });
     }
 });
 const auth = auhtSlice.reducer

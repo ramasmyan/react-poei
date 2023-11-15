@@ -1,22 +1,23 @@
-
-import { useForm} from 'react-hook-form';
 import "../assets/style/signin.scss"
+import {useState} from "react";
 function Login() {
-    const {register,handleSubmit} = useForm()
-
-
-    const submit = async (data) => {
-        console.log(data)
-        const response = await fetch('http://localhost:3000/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'form-data'
-            },
-            body: JSON.stringify(data),
-        })
-        const result = await response.json()
-        console.log(result)
+    const [formData, setFormData] = useState(
+        {
+            email: "",
+            password: "",
+        }
+    );
+    const {email, password} = formData;
+    const onChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
     }
+    const onSubmit = (data) => {
+        console.log(data)
+    }
+
+
+
+        
     return (
         <div>
             <h1>Login</h1>
@@ -24,15 +25,15 @@ function Login() {
             <form className="m-signin-form" method={"POST"} >
                 <section>
                     <label htmlFor="email">Email
-                        <input type="email" name="email" id="email" {...register("email")}/>
+                        <input type="email" name="email" id="email" value={email} onChange={onChange} />
                     </label>
                 </section>
                 <section>
                     <label htmlFor="password">Password
-                        <input type="password" name="password" id="password" {...register("password")}/>
+                        <input type="password" name="password" id="password" value={password} onChange={onChange}/>
                     </label>
                 </section>
-                <button type="submit" onClick={handleSubmit(submit)}>Submit</button>
+                <button type="submit" onClick={onSubmit}>Submit</button>
             </form>
         </div>
     );
