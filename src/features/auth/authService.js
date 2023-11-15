@@ -1,21 +1,30 @@
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-
-const register = async (userData) => {
+const API_URL = "/users"
+const registerUser = async (registerForm)=>{
     try {
-        const response = await fetch("/api/users/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            body: userData,
-        });
-        const responseData = await response.json();
-        if (!response.ok) {
-            return rejectWithValue(responseData);
+        const response = await fetch('/register',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: registerForm
+            }
+        )
+        const data = await response.json();
+        if (response.status === 200) {
+            localStorage.setItem('user',JSON.stringify(data.data));
+            return data;
         }
-        return responseData;
     } catch (error) {
-        return rejectWithValue(error.response.data);
+        return error;
     }
 }
-export default register;
+
+
+const AuthServices = {
+    registerUser
+}
+
+export default AuthServices;

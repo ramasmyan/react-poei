@@ -1,26 +1,23 @@
 import { useForm} from 'react-hook-form';
 import "../assets/style/signin.scss"
-function Logout() {
-    const {register,handleSubmit} = useForm()
+import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {reset, decrement, increment} from "../features/count/coutSlice";
+function Toto() {
+    const counter = useSelector(state => state.counter)
 
+    const dispatch = useDispatch()
 
-    const submit = async (data) => {
-        const response = await fetch('http://localhost:8080/users/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'form-data'
-            },
-            body: JSON.stringify(data),
-        })
-        const result = await response.json()
-        console.log(result)
-    }
     return (
         <div>
-            <h1>Logout</h1>
-            <button type="submit" onClick={handleSubmit(submit)}>Logout</button>
+            hello
+            <h1>{counter}</h1>
+            <button onClick={()=>dispatch(increment(1))}>+</button>
+            <button onClick={()=>dispatch(decrement(1))}>-</button>
+            <button onClick={()=>dispatch(reset())}>reset</button>
+
         </div>
     );
 }
 
-export default Logout;
+export default Toto;

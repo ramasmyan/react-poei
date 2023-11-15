@@ -1,27 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useForm} from 'react-hook-form';
+import {useSelector, useDispatch} from "react-redux";
+import {registerUser, reset} from "../features/auth/authSlice"
 import "../assets/style/signin.scss"
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 function SignIn() {
     const {register,handleSubmit} = useForm()
+    const dispatch = useDispatch();
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+    const {firstName, lastName, email, password, confirmPassword} = formData;
+    const navigate = useNavigate();
+    const {user, isLoading , isSuccess , isError, message} = useSelector((state) => state.auth);
 
-
-    const submit = async (userData) => {
-        await (2000)
-        try {
-            const response = await fetch("/users/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                body: userData,
-            });
-            const responseData = await response.json();
-            if (!response.ok) {
-                console.log(responseData)
-            }
-            return responseData;
-        } catch (error) {
-            console.log(error)
+    const onChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    }
+    const submit = (e) => {
+        e.preventDefault()
+        if (password !== confirmPassword) {
+            toast.error("Password and Confirm Password must be the same")
+        } else {
+            dispatch(registerUser(formData))
         }
     }
     return (
