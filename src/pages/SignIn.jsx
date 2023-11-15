@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {registerUser, reset} from "../features/auth/authSlice"
+import {registerUser, reset} from "../Features/auth/authSlice"
 import "../assets/style/signin.scss"
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
