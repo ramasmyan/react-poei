@@ -1,10 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import './Home.scss';
-import ArrowUpShortWide from '../../assets/img/svg/arrow-up-short-wide-svgrepo-com.svg';
-import ArrowDownShortWide from '../../assets/img/svg/arrow-down-wide-short-svgrepo-com.svg';
-import ArrowUpZA from '../../assets/img/svg/arrow-down-z-a-svgrepo-com.svg';
-import ArrowDownZA from '../../assets/img/svg/arrow-up-z-a-svgrepo-com.svg';
+import ArrowUpShortWide from '../../Assets/img/svg/arrow-up-short-wide-svgrepo-com.svg';
+import ArrowDownShortWide from '../../Assets/img/svg/arrow-down-wide-short-svgrepo-com.svg';
+import ArrowUpZA from '../../Assets/img/svg/arrow-down-z-a-svgrepo-com.svg';
+import ArrowDownZA from '../../Assets/img/svg/arrow-up-z-a-svgrepo-com.svg';
 
 
 
