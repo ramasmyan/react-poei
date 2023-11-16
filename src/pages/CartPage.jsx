@@ -1,11 +1,11 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getData} from "../features/products/productsService";
-import Home from '../Components/Home/Home';
+import {getData} from "../Features/products/productsService";
+import Cart from '../Components/Cart/Cart'
 
 
 
-function Homepage(props) {
+function CartPage(props) {
     const productState = useSelector(state => state.products);
     const dispatch = useDispatch();
     const products = productState.data
@@ -17,9 +17,9 @@ function Homepage(props) {
 
     return (
       <div className="container">
-        <Home products={products}/>
+        <Cart products={products}/>
       </div>
     );
 }
 
-export default Homepage;
+export default CartPage;

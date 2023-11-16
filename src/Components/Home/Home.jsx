@@ -1,14 +1,33 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import './Home.scss';
 import ArrowUpShortWide from '../../Assets/img/svg/arrow-up-short-wide-svgrepo-com.svg';
 import ArrowDownShortWide from '../../Assets/img/svg/arrow-down-wide-short-svgrepo-com.svg';
 import ArrowUpZA from '../../Assets/img/svg/arrow-down-z-a-svgrepo-com.svg';
 import ArrowDownZA from '../../Assets/img/svg/arrow-up-z-a-svgrepo-com.svg';
-
+import ProductCard from '../ProductCard/ProductCard';
+import Yeezy from '../../Assets/img/models/yeezy.glb';
+import DailyShoes from '../../Assets/img/airmax2017.png';
+import NewArrival from '../../Assets/img/airforcebw.png';
 
 
 function Home(props) {
+
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Assuming props.products is a function that returns a Promise
+        const data = await props.products;
+        console.log(data);
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [props.products]);
 
     return (
         <section className='Home'>
@@ -153,14 +172,14 @@ function Home(props) {
             <div className="container">
                 <div className="row products-container">
                     <div className="col" id="product-populars-line">
-                        <div className="justify-content-between d-flex">
+                       <div className="justify-content-between d-flex">
                             <span>Popular Shoes</span>
                             <a className="a-a-see-all">See All</a>
                         </div>
                         <div className="d-flex flex-row">
                             <div className="m-div-product" id="1">
                               <div className=" h-50 d-flex justify-content-center">
-                                <img src="assets/img/airforcebw.png" className="img-fluid img-thumbnail a-img-shoes-pictures align-self-center" alt="Air Force 1 Mid made for You" />
+                                <img src={NewArrival} className="img-fluid img-thumbnail a-img-shoes-pictures align-self-center" alt="Air Force 1 Mid made for You" />
                               </div>
                                 <div className="d-flex h-100 flex-column">
                                     <div className="m-div-description p-2 m-text">
@@ -177,7 +196,7 @@ function Home(props) {
                             </div>
                             <div className="m-div-product" id="2">
                               <div className=" h-50 d-flex justify-content-center">
-                                <img src="assets/img/airforce1Mid.png" className="img-fluid img-thumbnail a-img-shoes-pictures align-self-center" alt="Air Force 1 Mid made for You" />
+                                <img src={NewArrival} className="img-fluid img-thumbnail a-img-shoes-pictures align-self-center" alt="Air Force 1 Mid made for You" />
                               </div>                                
                               <div className="d-flex h-100 flex-column">
                                     <div className="m-div-description p-2 m-text">
@@ -237,7 +256,7 @@ function Home(props) {
                                     </clipPath>
                                     </defs>
                                     </svg>
-                                <img src="assets/img/airmax2017.png" className="img-fluid img-thumbnail a-img-shoes-pictures align-self-center" alt="Air Force 1 Mid made for You" />
+                                <img src={DailyShoes} className="img-fluid img-thumbnail a-img-shoes-pictures align-self-center" alt="Air Force 1 Mid made for You" />
                             </div>
                         </div>
                     </div>  
@@ -248,12 +267,22 @@ function Home(props) {
                         <span>All shoes</span>
                       </div>
                       <div className="d-flex flex-row m-div-sl flex-wrap" id="productContainer">
+                      {products.map((product) => (
+                        <ProductCard
+                          key={product._id}
+                          id={product._id}
+                          name={product.name}
+                          price={product.price}
+                          images={product.images[0]}
+                          description={product.description}
+                        />
+                      ))}
                       </div>
                     </div>
                 </div>
                 <div id="pub">
                   <model-viewer 
-                  src="./assets/img/models/yeezy.glb" 
+                  src={Yeezy}
                   className="mv-content"
                   disable-zoom
                   camera-orbit="calc(0deg + env(window-scroll-y) * 360deg) calc(0deg + env(window-scroll-y) * 180deg) calc(20m - env(window-scroll-y) * 4m)"
