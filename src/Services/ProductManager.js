@@ -1,3 +1,5 @@
+import React from'react';
+
 class ProductManager {
     constructor() {
       this.products = [];
@@ -7,8 +9,7 @@ class ProductManager {
       return fetch('http://localhost:3000/products')
         .then((response) => response.json())
         .then((data) => {
-          this.products = data.map((item) => new Shoes(item.id, item.ref, item.name, item.description, item.price, item.image, item.category, item.brand, item.color));
-          return this.products;
+          return data;
         })
         .catch((error) => console.error('Erreur lors du chargement du JSON :', error));
     }
@@ -43,7 +44,7 @@ class ProductManager {
       if(divWithBtnPrimary === null) {
         btn.classList.remove("btn-light");
         btn.classList.add("btn-primary");
-      }else if(divWithBtnPrimary.id != btn.id) {
+      }else if(divWithBtnPrimary.id !== btn.id) {
         divWithBtnPrimary.classList.remove("btn-primary");
         divWithBtnPrimary.classList.add("btn-light");
         btn.classList.remove("btn-light");
@@ -52,11 +53,12 @@ class ProductManager {
     }
 
     async search() {
+      const searchInput = '';
       const query = searchInput.value.toLowerCase(); // Obtenez la requête de recherche et convertissez-la en minuscules
       // Filtrer les produits qui correspondent à la requête
       const displayDiv = document.getElementsByClassName('products-container');
 
-      if(query != '') {
+      if(query !== '') {
         displayDiv[0].style = "display: none;";
       } else {
         displayDiv[0].style = "display: flex;";
@@ -83,19 +85,17 @@ class ProductManager {
       if(productCart){
         document.querySelector('.product-cart').innerHTML = '';
       } 
-      cart.displayCart;
+      /*cart.displayCart;
       cart.removeItemFromCart;
       cart.removeItem;
-      cart.addToCartEvent;
+      cart.addToCartEvent;*/
     }
 
-      // Ajoutez d'autres méthodes pour gérer les produits, par exemple, trier, ajouter au panier, etc.
-   
     async filtrebyCategory(selectedcategory)
     {
        this.deleteHTML();
        var tabcategory = this.products.filter(function(product) {
-         return product.category == selectedcategory;
+         return product.category === selectedcategory;
        });
       console.log(tabcategory);
       return tabcategory;

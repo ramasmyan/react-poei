@@ -15,8 +15,6 @@ function Homepage(props) {
         dispatch(getData());
     },[dispatch])
 
-
-
     return (
       <div className="container">
         <Home products={products}/>
