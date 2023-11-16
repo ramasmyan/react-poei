@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 function SignIn() {
     const dispatch = useDispatch();
-    const [formData, setFormData] = useState({
+      const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         email: "",
@@ -19,7 +19,6 @@ function SignIn() {
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
-        console.log(formData)
     }
     const submit = (e) => {
         e.preventDefault()

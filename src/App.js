@@ -1,5 +1,7 @@
 import React from 'react';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
+
+
 import SignIn from "./Pages/SignIn";
 import Login from "./Pages/Login";
 import ProductForm from "./Pages/ProductForm";
@@ -16,6 +18,7 @@ function App() {
         <BrowserRouter>
         <Navbar />
             <Routes>
+            <Route path="/" element={<Home/>}/>
                 <Route path="/products" element={<Products/>}/>
                 <Route path="/register" element={<SignIn/>}/>
                 <Route path="/login" element={<Login/>}/>

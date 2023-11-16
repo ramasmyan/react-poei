@@ -1,4 +1,9 @@
-import {useState} from "react";
+import "../assets/style/signin.scss"
+import {useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import {loginUser, reset} from "../features/auth/authSlice";
 import { useForm} from 'react-hook-form';
 import "../Assets/style/signin.scss";
 
@@ -10,14 +15,27 @@ function Login() {
         }
     );
     const {email, password} = formData;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    let {user,isSuccess, isError, message} = useSelector((state) => state.auth);
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     }
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch(loginUser(formData))
     }
-
-
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Welcome back " + user.firstName )
+            navigate("/")
+            dispatch(reset())
+        }
+        if (isError) {
+            toast.error(message)
+            dispatch(reset())
+        }
+    }, [isSuccess, isError, message, navigate,dispatch, user]);
 
         
     return (
