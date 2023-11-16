@@ -1,5 +1,5 @@
 import { useForm} from 'react-hook-form';
-import "../assets/style/signin.scss"
+import "../Assets/style/signin.scss"
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {reset, decrement, increment} from "../Features/count/coutSlice";
