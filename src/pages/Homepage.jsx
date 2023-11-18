@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getData} from "../features/products/productsService";
+import {getData} from "../Features/products/productsService";
 import Home from '../Components/Home/Home';
 
 

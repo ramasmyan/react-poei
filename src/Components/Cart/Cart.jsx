@@ -31,7 +31,6 @@ const Cart = () => {
             try {
               const productManager = new ProductManager();
               const result = await productManager.fetchProducts();
-              setCartItems(result);
             } catch (error) {
               console.error('Error fetching products:', error);
             }
@@ -64,7 +63,8 @@ const Cart = () => {
         <div className="col-md-6"  >
             <div className="boxcart">
             
-                    {products.map((product) => (
+                    {
+                    products.map((product) => (
                         <CartProduct
                         key={product._id}
                         id={product._id}
