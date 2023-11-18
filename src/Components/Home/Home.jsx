@@ -16,7 +16,9 @@ function Home(props) {
     color: null, // 'Orange', 'Green', 'Red', etc.
   });
   const [searchTerm, setSearchTerm] = React.useState('');
-
+  const [categoryFilter, setCategoryFilter] = React.useState(null);
+  const [brandFilters, setBrandFilters] = React.useState([]);
+  const [colorFilter, setColorFilter] = React.useState(null);
 
   React.useEffect(() => {
     const fetchData = async () => {

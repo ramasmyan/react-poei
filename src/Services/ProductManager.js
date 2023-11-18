@@ -23,24 +23,40 @@ const fetchProducts = async () => {
     }
 
     if (filters.category) {
-      filteredProducts = filteredProducts.filter(product => product.category === filters.category);
+      filteredProducts = filteredProducts.filter((product) => filterByCategory(filters.category, product));
     }
 
     if (filters.brands.length > 0) {
-      filteredProducts = filteredProducts.filter(product => filters.brands.includes(product.brand));
+      filteredProducts = filteredProducts.filter((product) => filterByBrand(filters.brands, product));
     }
 
     if (filters.color) {
       if (filters.color !== '') {
-      filteredProducts = filteredProducts.filter(product => product.color === filters.color);
+      filteredProducts = filteredProducts.filter((product) => filterByColor(filters.color, product));
       }
     }
 
     return filteredProducts;
 }
 
+const filterByCategory = async (categoryFilter, product) => {
+  return categoryFilter ? product.category === categoryFilter : true;
+}
+
+const filterByBrand = async (brandFilters, product) => {
+  return brandFilters.length === 0 || brandFilters.includes(product.brand);
+}
+
+const filterByColor = async (colorFilter, product) => {
+  return colorFilter ? product.color === colorFilter : true;
+}
 
 
 export default fetchProducts;
 
-export default ProductManager;
+export  {
+  filterProducts,
+  filterByCategory,
+  filterByBrand,
+  filterByColor
+};
