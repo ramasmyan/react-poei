@@ -26,7 +26,14 @@ function HomeFilters(props) {
   const handleColorClick = (color) => {
     props.setFilters({ ...props.filters, color });
   };
+  const handleResetClick = () => {
+    // Réinitialiser les filtres
+    props.setFilters({ sortBy: "", category: "", brands: [], color: "" });
 
+    // Désélectionner les cases à cocher et les boutons radio
+    document.querySelectorAll('input[name="flexRadioDefault"]').forEach((radio) => (radio.checked = false));
+    document.querySelectorAll('input[name="checkbox"]').forEach((checkbox) => (checkbox.checked = false));
+  };
 
     return (
         <div className="d-flex position-relative" id="filter-div">
@@ -229,7 +236,7 @@ function HomeFilters(props) {
             </div>
                   <div className="modal-footer justify-content-between">
                     
-                    <button type="button" className="btn btn-danger" data-dismiss="modal" id="myBTNClose" onClick={() => props.setFilters({sortBy: "",category: "",brands: [],color: "",})}>Reset</button>
+                    <button type="button" className="btn btn-danger" data-dismiss="modal" id="myBTNClose" onClick={handleResetClick}>Reset</button>
                     <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
                   </div>
                 </div>

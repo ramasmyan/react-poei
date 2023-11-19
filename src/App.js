@@ -10,6 +10,7 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Components/Navbar/Navbar';
 import CartPage from './Pages/CartPage';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   return (
@@ -23,9 +24,11 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/form" element={<ProductForm/>}/>
                 <Route path="/" element={<Home/>}/>
-            </Routes>
+            </Routes>  
+        <Footer />      
         </BrowserRouter>
         <ToastContainer/>
+        
     </div>
   );
 }

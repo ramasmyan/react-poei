@@ -25,18 +25,18 @@ const Cart = () => {
     };
     
   
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-              const productManager = new ProductManager();
-              const result = await productManager.fetchProducts();
-            } catch (error) {
-              console.error('Error fetching products:', error);
-            }
-          };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //           const productManager = new ProductManager();
+    //           const result = await productManager.fetchProducts();
+    //         } catch (error) {
+    //           console.error('Error fetching products:', error);
+    //         }
+    //       };
   
-      fetchData();
-    }, []);
+    //   fetchData();
+    // }, []);
 
   // Function to calculate the total cost
 // const calculateTotal = () => {
@@ -88,7 +88,7 @@ const Cart = () => {
               <p className="ptitle1">Delivery</p>
               <p className="priceF m-delivry-right"></p>
             </div>
-            <svg className="linefacture"  viewBox="18 0 300 2" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M1 1H336" stroke="#707B81" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 6" /></svg>
+            <svg className="linefacture"  viewBox="18 0 300 2" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M1 1H336" stroke="#707B81" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 6" /></svg>
             <div className="total-facture">
               <p className="total-title">Total cost</p>
               <p className="total-price  m-total-right"></p>
