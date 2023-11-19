@@ -5,7 +5,6 @@ import {BrowserRouter,Routes,Route} from "react-router-dom";
 import SignIn from "./Pages/SignIn";
 import Login from "./Pages/Login";
 import ProductForm from "./Pages/ProductForm";
-import Toto from "./Pages/Toto";
 import Home from './Pages/Homepage';
 import Products from "./Pages/Products";
 import {ToastContainer} from "react-toastify";
