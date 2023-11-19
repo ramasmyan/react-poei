@@ -8,7 +8,7 @@ const fetchProducts = async () => {
 }
 
   const filterProducts = async (products, filters) => {
-    let filteredProducts = [...products];
+    let filteredProducts = products;
 
     if (filters.sortBy) {
       if (filters.sortBy === 'ascName') {
@@ -25,21 +25,23 @@ const fetchProducts = async () => {
     if (filters.category) {
       filteredProducts = filteredProducts.filter((product) => filterByCategory(filters.category, product));
     }
-
+  
     if (filters.brands.length > 0) {
-      filteredProducts = filteredProducts.filter((product) => filterByBrand(filters.brands, product));
+      filteredProducts = products.filter((product) => {
+        const shouldInclude = filters.brands.includes(product.brand);
+        return shouldInclude;
+      });
     }
-
+  
     if (filters.color) {
       if (filters.color !== '') {
-      filteredProducts = filteredProducts.filter((product) => filterByColor(filters.color, product));
+        filteredProducts = filteredProducts.filter((product) => filterByColor(filters.color, product));
       }
     }
-
     return filteredProducts;
-}
+  }
 
-const filterByCategory = async (categoryFilter, product) => {
+const filterByCategory = (categoryFilter, product) => {
   return categoryFilter ? product.category === categoryFilter : true;
 }
 

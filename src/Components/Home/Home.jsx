@@ -4,41 +4,56 @@ import ProductCard from '../ProductCard/ProductCard';
 import Yeezy from '../../Assets/img/models/yeezy.glb';
 import HomeFilters from '../HomeFilters/HomeFilters';
 import NewShoes from '../NewShoes/NewShoes';
-import { filterProducts } from '../../Services/ProductManager';
+import fetchProducts, { filterProducts } from '../../Services/ProductManager';
 
 function Home(props) {
 
   const [products, setProducts] = React.useState([]);
   const [filters, setFilters] = React.useState({
-    sortBy: null, // 'ascPrice', 'descPrice', 'ascName', 'descName', etc.
-    category: null, // 'Outdoor', 'Tennis', 'Running', etc.
-    brands: [], // ['Nike', 'Adidas', 'New Balance', 'Vans', etc.]
-    color: null, // 'Orange', 'Green', 'Red', etc.
+    sortBy: null,
+    brands: [],
+    color: null,
   });
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [categoryFilter, setCategoryFilter] = React.useState(null);
-  const [brandFilters, setBrandFilters] = React.useState([]);
-  const [colorFilter, setColorFilter] = React.useState(null);
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         // Assuming props.products is a function that returns a Promise
         const data = await props.products;
-        console.log(data);
         setProducts(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [props.products]);
 
   React.useEffect(() => {
-    filterProducts(products, filters).then((products) => setProducts(products));
-  }, [filters]);
+    const getProducts = async () => {
+      // Remplacez cette ligne avec votre propre logique pour récupérer les produits
+      // par exemple, si vous avez une fonction fetchProducts, utilisez-la ici
+      const fetchedProducts = await fetchProducts(); 
+      const filteredProducts = await filterProducts(fetchedProducts, filters);
+      setProducts(filteredProducts);
+    };
+
+    getProducts();
+    }, [filters]);
   
+    const resetFilters = () => {
+      // Définissez les valeurs initiales pour vos filtres ici
+      const initialFilters = {
+        sortBy: "",
+        category: "",
+        brands: [],
+        color: "",
+      };
+  
+      // Mettez à jour l'état des filtres avec les valeurs initiales
+      setFilters(initialFilters);
+      console.log(filters);
+    };
 
     return (
         <section className='Home'>
@@ -50,6 +65,7 @@ function Home(props) {
             filters={filters}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
+            resetFilters={resetFilters}
             />
             <div className="container">
                 <NewShoes />
@@ -93,7 +109,8 @@ function Home(props) {
                           images={product.images[0]}
                           description={product.description}
                         />
-                      ))}
+                      ))
+                      }
                       </div>
                     </div>
                 </div>
