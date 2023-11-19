@@ -19,7 +19,7 @@ const fetchProducts = async () => {
         return products.slice().sort((a, b) => b.price - a.price);
       } else if (filters.sortBy === 'ascPrice') {
         return products.slice().sort((a, b) => a.price - b.price);
-      }
+      } 
     }
 
     if (filters.category) {
@@ -54,7 +54,7 @@ const filterByColor = async (colorFilter, product) => {
 }
 
 
-export default fetchProducts;
+export default fetchProducts; 
 
 export  {
   filterProducts,
