@@ -229,7 +229,7 @@ function HomeFilters(props) {
             </div>
                   <div className="modal-footer justify-content-between">
                     
-                    <button type="button" className="btn btn-danger" data-dismiss="modal" id="myBTNClose">Reset</button>
+                    <button type="button" className="btn btn-danger" data-dismiss="modal" id="myBTNClose" onClick={() => props.setFilters({sortBy: "",category: "",brands: [],color: "",})}>Reset</button>
                     <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
                   </div>
                 </div>
