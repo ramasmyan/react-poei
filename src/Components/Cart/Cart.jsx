@@ -4,7 +4,6 @@ import ProductManager from '../../Services/ProductManager';
 import CartProduct from '../CartProduct/CartProduct';
 
 const Cart = () => {
-   
     const [products, setCartItems] = useState([]);
     
     const handleIncrement = (productId) => {
@@ -54,8 +53,7 @@ const Cart = () => {
       <div>
     <div className="m-header-cart">
       <button className="a-goback-cart">
-          
-          </button>
+      </button>
       <h4 className="a-header-title">My Cart</h4>
     </div>      
       <div className="container-cart">

@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navbar.scss';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
@@ -46,11 +47,11 @@ const NavBar = () => {
                     </ul>
                   </div>
                   <div>
-                    <a href="/cart.html" className="a-btn-link">
-                      <button type="button" className="btn btn-primary" style={{ marginLeft: '80px', marginTop: '40px', color: 'white' }}>
-                        View Car
-                      </button>
-                    </a>
+                    <Link to="/cart" className="a-btn-link">
+                    <button type="button" className="btn btn-primary" style={{ marginLeft: '80px', marginTop: '40px', color: 'white' }}>
+                      View Cart
+                    </button>
+                  </Link>
                   </div>
                   <a href="/checkout.html" className="a-a-checkout">
                     <button type="button" className="btn btn-outline-primary m-btn-checkout" style={{ marginLeft: '80px', marginTop: '40px' }}>
@@ -86,7 +87,7 @@ const NavBar = () => {
               <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Cart
                 <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">0</span>
-              </a>
+              </a>              
               <ul className="dropdown-menu shopping-cart box-background">
                 <div className="shopping-cart">
                   <div className="shopping-cart-header">
@@ -102,11 +103,11 @@ const NavBar = () => {
                     </ul>
                   </div>
                   <div>
-                    <a href="/cart.html" className="a-btn-link">
-                      <button type="button" className="btn btn-primary" style={{ marginLeft: '80px', marginTop: '40px', color: 'white' }}>
-                        View Car
-                      </button>
-                    </a>
+                  <Link to="/cart" className="a-btn-link">
+                    <button type="button" className="btn btn-primary" style={{ marginLeft: '80px', marginTop: '40px', color: 'white' }}>
+                      View Cart
+                    </button>
+                  </Link>
                   </div>
                   <a href="/checkout.html" className="a-a-checkout">
                     <button type="button" className="btn btn-outline-primary m-btn-checkout" style={{ marginLeft: '80px', marginTop: '40px' }}>

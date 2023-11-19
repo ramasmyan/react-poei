@@ -9,6 +9,7 @@ import Products from "./Pages/Products";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Components/Navbar/Navbar';
+import CartPage from './Pages/CartPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Navbar />
             <Routes>
                 <Route path="/products" element={<Products/>}/>
+                <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/register" element={<SignIn/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/form" element={<ProductForm/>}/>

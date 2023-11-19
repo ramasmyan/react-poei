@@ -56,7 +56,7 @@ const filterByColor = async (colorFilter, product) => {
 
 export default fetchProducts; 
 
-export  {
+export {
   filterProducts,
   filterByCategory,
   filterByBrand,
