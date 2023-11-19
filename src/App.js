@@ -3,9 +3,7 @@ import {BrowserRouter,Routes,Route} from "react-router-dom";
 import SignIn from "./Pages/SignIn";
 import Login from "./Pages/Login";
 import ProductForm from "./Pages/ProductForm";
-import Toto from "./Pages/Toto";
 import Home from './Pages/Homepage';
-import Products from "./Pages/Products";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Components/Navbar/Navbar';
@@ -17,10 +15,8 @@ function App() {
         <BrowserRouter>
         <Navbar />
             <Routes>
-                <Route path="/products" element={<Products/>}/>
             <Route path="/navbar" element={<Navbar/>}/>
             <Route path="/cart" element={<CartPage/>}/>
-             <Route path="/products" element={<Products/>}/>
                 <Route path="/register" element={<SignIn/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/form" element={<ProductForm/>}/>

@@ -1,13 +1,17 @@
-import {fetchProducts, fetchProductsError, fetchProductsSuccess} from "./productsSlice";
+import axios from "axios";
 
-function getData(action) {
-    return function (dispatch) {
-        dispatch(fetchProducts());
-        fetch('http://localhost:3000/products')
-            .then(response => response.json())
-            .then(json => dispatch(fetchProductsSuccess(json)))
-            .catch(error => dispatch(fetchProductsError(error)));
+const proxy = "http://localhost:3000";
+const API_URL = "/products"
+
+const getProducts = async () => {
+    const response = await axios.get(`${proxy}${API_URL}`);
+    const data = await response.data;
+    if (response.status === 200) {
+        return data;
     }
 }
 
-export {getData}
+export const ProductsServices = {
+    getProducts,
+}
+export default ProductsServices;
