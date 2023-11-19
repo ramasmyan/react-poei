@@ -17,9 +17,6 @@ function Login() {
         console.log(data)
     }
 
-
-
-        
     return (
         <div>
             <h1>Login</h1>
