@@ -1,31 +1,78 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import ArrowUpShortWide from '../../Assets/img/svg/arrow-up-short-wide-svgrepo-com.svg';
 import ArrowDownShortWide from '../../Assets/img/svg/arrow-down-wide-short-svgrepo-com.svg';
 import ArrowUpZA from '../../Assets/img/svg/arrow-down-z-a-svgrepo-com.svg';
 import ArrowDownZA from '../../Assets/img/svg/arrow-up-z-a-svgrepo-com.svg';
+import {fetchAllProducts} from "../../Features/products/productsSlice";
+import {toast} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import ProductComponent from "../ProductComponent";
+
 
 function HomeFilters(props) {
+    const {data,isSuccess} = useSelector(state => state.products);
+    const dispatch = useDispatch();
+    const [products, setProducts] = useState(null);
+    const [category, setCategory] = useState('')
+    const [brand, setBrand] = useState('')
+    const [color, setColor] = useState("")
 
-  const handleSortByClick = (sortBy) => {
-    props.setFilters({ ...props.filters, sortBy });
-  };
 
-  const handleCategoryClick = (category) => {
-    props.setFilters({ ...props.filters, category });
-  };
+    function loadProducts() {
+         dispatch(fetchAllProducts());
+    }
 
-  const handleBrandClick = (brand) => {
-    // Toggle the brand in the array
-    const updatedBrands = props.filters.brands.includes(brand)
-      ? props.filters.brands.filter((b) => b !== brand)
-      : [...props.filters.brands, brand];
+    const [sort, setSort] = useState('');
+    let dataFetch = [...data];
+    useEffect( () => {
+        loadProducts();
+        if (sort === 'ascPrice') {
+             dataFetch = dataFetch.sort((a, b) => a.price - b.price);
+            setProducts(dataFetch);
+        }else if (sort === 'descPrice') {
+             dataFetch = dataFetch.sort((a, b) => b.price - a.price);
+            setProducts(dataFetch);
+        }else if (sort === 'ascName') {
+             dataFetch = dataFetch.sort((a, b) => a.name.localeCompare(b.name));
+            setProducts(dataFetch);
+        }else if (sort === 'descName') {
+             dataFetch = dataFetch.sort((a, b) => b.name.localeCompare(a.name));
+            setProducts(dataFetch);
+        }else {
+             setProducts(dataFetch);
+        }
 
-    props.setFilters({ ...props.filters, brands: updatedBrands });
-  };
+        if (isSuccess) {
 
-  const handleColorClick = (color) => {
-    props.setFilters({ ...props.filters, color });
-  };
+        }
+        if (category && brand && color) {
+            dataFetch = dataFetch.filter((product) => product.category === category && product.brand === brand && product.color === color);
+            setProducts(dataFetch);
+        }else if (category && brand) {
+            dataFetch = dataFetch.filter((product) => product.category === category && product.brand === brand);
+            setProducts(dataFetch);
+        }else if (category && color) {
+            dataFetch = dataFetch.filter((product) => product.category === category && product.color === color);
+            setProducts(dataFetch);
+        }else if (brand && color) {
+            dataFetch = dataFetch.filter((product) => product.brand === brand && product.color === color);
+            setProducts(dataFetch);
+        }
+        else if (category) {
+            dataFetch = dataFetch.filter((product) => product.category === category);
+            setProducts(dataFetch);
+        }else if (brand) {
+            dataFetch = dataFetch.filter((product) => product.brand === brand);
+            setProducts(dataFetch);
+        }else if (color) {
+            dataFetch = dataFetch.filter((product) => product.color === color);
+            setProducts(dataFetch);
+        }else {
+            setProducts(dataFetch);
+        }
+    },[isSuccess,sort]);
+
+
 
 
     return (
@@ -41,7 +88,7 @@ function HomeFilters(props) {
                   type="button" 
                   className="btn btn-light m-button-filters" 
                   id="ascPrice" 
-                  onClick={() => handleSortByClick('ascPrice')}
+                  onClick={() => setSort('ascPrice')}
                   >
                     <span>Prix </span>
                     <img src={ArrowUpShortWide} alt="filter price asc" className='arrow'/>
@@ -52,7 +99,7 @@ function HomeFilters(props) {
                   type="button" 
                   className="btn btn-light m-button-filters" 
                   id="descPrice"
-                  onClick={() => handleSortByClick('descPrice')}
+                  onClick={() => setSort('descPrice')}
                   >
                     <span>Prix </span>
                     <img src={ArrowDownShortWide} alt="filter price desc" className='arrow'/>
@@ -63,7 +110,7 @@ function HomeFilters(props) {
                   type="button" 
                   className="btn btn-light m-button-filters" 
                   id="ascName"
-                  onClick={() => handleSortByClick('ascName')}
+                  onClick={() =>setSort('ascName') }
                   >
                     <span>Nom </span>
                     <img src={ArrowUpZA} alt="filter name asc" className='arrow'/>
@@ -74,7 +121,7 @@ function HomeFilters(props) {
                     type="button" 
                     className="btn btn-light m-button-filters" 
                     id="descName"
-                    onClick={() => handleSortByClick('descName')}
+                    onClick={() => setSort('descName')}
                     >
                       <span>Nom </span>
                       <img src={ArrowDownZA} alt="filter name desc" className='arrow'/>
@@ -123,7 +170,7 @@ function HomeFilters(props) {
                           name="flexRadioDefault" 
                           id="flexRadioDefault1" 
                           value="Outdoor" 
-                          onChange={() => handleCategoryClick('Outdoor')}
+                          onChange={() => setCategory('Outdoor')}
                           />
                           <label className="form-check-label" htmlFor="flexRadioDefault1">
                             Outdoor
@@ -135,7 +182,7 @@ function HomeFilters(props) {
                           type="radio" name="flexRadioDefault" 
                           id="flexRadioDefault2" 
                           value="Tennis" 
-                          onChange={() => handleCategoryClick('Tennis')}
+                          onChange={() => setCategory('Tennis')}
                           />
                           <label className="form-check-label" htmlFor="flexRadioDefault2">
                             Tennis
@@ -148,7 +195,7 @@ function HomeFilters(props) {
                           name="flexRadioDefault" 
                           id="flexRadioDefault3" 
                           value="Running" 
-                          onChange={() => handleCategoryClick('Running')}
+                          onChange={() => setCategory('Running')}
                           />
                           <label className="form-check-label" htmlFor="flexRadioDefault3" style={{marginBottom: '10px'}}>
                             Running
@@ -162,7 +209,7 @@ function HomeFilters(props) {
                           name="checkbox" 
                           value="Nike" 
                           id="flexRadioDefault4"
-                          onChange={() => handleBrandClick('Nike')}
+                          onChange={() => setBrand('Nike')}
                           />
                           <label className="form-check-label" htmlFor="flexRadioDefault4">
                             Nike
@@ -175,7 +222,7 @@ function HomeFilters(props) {
                           name="checkbox" 
                           value="Adidas" 
                           id="flexRadioDefault5" 
-                          onChange={() => handleBrandClick('Adidas')}
+                          onChange={() => setBrand('Adidas')}
                           />
                           <label className="form-check-label" htmlFor="flexRadioDefault5">
                             Adidas
@@ -188,7 +235,7 @@ function HomeFilters(props) {
                           name="checkbox" 
                           value="New Balance" 
                           id="flexRadioDefault6" 
-                          onChange={() => handleBrandClick('New Balance')}
+                          onChange={() => setBrand('New Balance')}
                           />
                           <label className="form-check-label" htmlFor="flexRadioDefault6">
                             New Balance
@@ -201,7 +248,7 @@ function HomeFilters(props) {
                           name="checkbox" 
                           value="Vans" 
                           id="flexRadioDefault7" 
-                          onChange={() => handleBrandClick('Vans')}
+                          onChange={() => setBrand('Vans')}
                           />
                           <label className="form-check-label" htmlFor="flexRadioDefault7">
                             Vans
@@ -214,15 +261,15 @@ function HomeFilters(props) {
                             <button className="btn _select_color dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span _text_display="Orange" className="color orange"></span></button>
                             <ul className="dropdown-menu _select_color_drop" aria-labelledby="dropdownMenu1">
-                                <li><span _text_display="Green" className="color green" onClick={() => handleColorClick('Green')}></span></li>
-                                <li><span _text_display="Red" className="color red" onClick={() => handleColorClick('Red')}></span></li>
-                                <li><span _text_display="Brown" className="color brown" onClick={() => handleColorClick('Brown')}></span></li>
-                                <li><span _text_display="Orange" className="color orange" onClick={() => handleColorClick('Orange')}></span></li>
-                                <li><span _text_display="Gray" className="color gray" onClick={() => handleColorClick('Gray')}></span></li>
-                                <li><span _text_display="Blue" className="color blue" onClick={() => handleColorClick('Blue')}></span></li>
-                                <li><span _text_display="Black" className="color black" onClick={() => handleColorClick('Black')}></span></li>
-                                <li><span _text_display="White" className="color white" onClick={() => handleColorClick('White')}></span></li>
-                                <li><span _text_display="No color" className="" onClick={() => handleColorClick('')}></span></li>
+                                <li><span _text_display="Green" className="color green" onClick={() => setColor('Green')}></span></li>
+                                <li><span _text_display="Red" className="color red" onClick={() => setColor('Red')}></span></li>
+                                <li><span _text_display="Brown" className="color brown" onClick={() => setColor('Brown')}></span></li>
+                                <li><span _text_display="Orange" className="color orange" onClick={() => setColor('Orange')}></span></li>
+                                <li><span _text_display="Gray" className="color gray" onClick={() => setColor('Gray')}></span></li>
+                                <li><span _text_display="Blue" className="color blue" onClick={() => setColor('Blue')}></span></li>
+                                <li><span _text_display="Black" className="color black" onClick={() => setColor('Black')}></span></li>
+                                <li><span _text_display="White" className="color white" onClick={() => setColor('White')}></span></li>
+                                <li><span _text_display="No color" className="" onClick={() => setColor('')}></span></li>
                                 <input type="hidden" name="filterColor" value="Orange" />
                           </ul>
                         </div>
@@ -238,7 +285,9 @@ function HomeFilters(props) {
           </div>
         </div>
 
+        <ProductComponent products={products} />
     </div>
+
     );
 }
 

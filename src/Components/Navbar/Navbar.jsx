@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Navbar.scss';
 import { Link } from 'react-router-dom';
+import cartService from "../../Services/CartService";
 
 const NavBar = () => {
+    const cart = cartService
+    const [cartItems, setCartItems] = useState(null);
+    const [cartPrice, setCartPrice] = useState(null);
+    const [cartQuantity, setCartQuantity] = useState(null);
+  const ref = useRef(JSON.parse(localStorage.getItem('cart')));
+  useEffect(() => {
+        setCartItems(JSON.parse(localStorage.getItem('cart')));
+        setCartPrice(cart.getAllPrice());
+        setCartQuantity(cart.getAllQuantity())
+    }, [ref]);
   return (
     <nav className="navbar bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -29,7 +40,7 @@ const NavBar = () => {
             <li className="nav-item dropdown position-relative">
               <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Cart
-                <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">1</span>
+                <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">{cartQuantity}</span>
               </a>
 
               <ul className="dropdown-menu shopping-cart box-background dropdown-cart-fullscreen">
@@ -38,12 +49,19 @@ const NavBar = () => {
                     <i className="fa fa-shopping-cart cart-icon"></i><span className="badge"></span>
                     <div className="shopping-cart-total">
                       <span className="lighter-text">Total:</span>
-                      <span className="main-color-text total-cart">$302</span>
+                      <span className="main-color-text total-cart">{cartPrice}</span>
                     </div>
                   </div>
                   <div>
                     <ul className="shopping-cart-items">
-
+                      {cartItems ? cartItems.map((product) => (
+                          <li className="clearfix">
+                            <img src={product.images} alt="item1" />
+                            <span className="item-name">{product.name}</span>
+                            <span className="item-price">${product.price}</span>
+                            <span className="item-quantity">Quantity: 01</span>
+                          </li>
+                      )): <p>cart is empty</p>}
                     </ul>
                   </div>
                   <div>
@@ -86,20 +104,27 @@ const NavBar = () => {
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Cart
-                <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">0</span>
+                <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">{cart.getAllQuantity()}</span>
               </a>              
               <ul className="dropdown-menu shopping-cart box-background">
                 <div className="shopping-cart">
                   <div className="shopping-cart-header">
-                    <i className="fa fa-shopping-cart cart-icon"></i><span className="badge"></span>
+                    <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">{cartQuantity}</span>
                     <div className="shopping-cart-total">
-                      <span className="lighter-text">Total:</span>
+                      <span className="lighter-text">Total: {cartPrice}</span>
                       <span className="main-color-text total-cart"></span>
                     </div>
                   </div>
                   <div>
                     <ul className="shopping-cart-items">
-
+                      {cartItems ? cartItems.map((product) => (
+                      <li className="clearfix">
+                        <img src={product.images} alt="item1" />
+                        <span className="item-name">{product.name}</span>
+                        <span className="item-price">${product.price}</span>
+                        <span className="item-quantity">Quantity: 01</span>
+                        </li>
+                        )): <p>cart is empty</p>}
                     </ul>
                   </div>
                   <div>

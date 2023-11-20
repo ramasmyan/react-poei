@@ -13,24 +13,46 @@ export const fetchAllProducts = createAsyncThunk(
     '/products',
     async (thunkAPI) => {
         try {
-            console.log("fetching products")
             return await ProductsServices.getProducts();
         }catch (error) {
-            const message =  (error.response.data.message);
+            let message =  (error.response.data.message);
             return thunkAPI.rejectWithValue(error.message);
         }
     }
 )
+
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
         reset: (state) => {
+            state.data = [];
             state.isSuccess = false;
             state.message = null;
             state.isError = null;
             state.isLoading = false;
+        },
+        sortPriceUp: (state, action) => {
+            console.log("action",state.data)
+        },
+        sortPriceDown: (state, action) => {
+            state.data = action.payload.data.sort((a,b) => b.price - a.price);
+        },
+        sortNameUp: (state, action) => {
+            state.data = action.payload.data.sort((a,b) => a.name.localeCompare(b.name));
+        },
+        sortNameDown: (state, action) => {
+            state.data = action.payload.data.sort((a,b) => b.name.localeCompare(a.name));
+        },
+        filterCategory: (state, action) => {
+            state.data = action.payload.data.filter(item => item.category === action.payload.category);
+        },
+        filterCategoryAndBrandAndColor: (state, action) => {
+            state.data = action.payload.data.filter(item => item.category === action.payload.category && item.brand === action.payload.brand && item.color === action.payload.color);
+        },
+        getAll: (state, action) => {
+            state.data = action.payload.data;
         }
     },
     extraReducers: (builder) => {
@@ -41,7 +63,6 @@ const productsSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = true;
             state.data = action.payload.data;
-            console.log(action.payload.data)
         });
         builder.addCase(fetchAllProducts.rejected, (state, action) => {
             state.isLoading = false;
@@ -55,5 +76,6 @@ const productsSlice = createSlice({
 
 
 const products = productsSlice.reducer;
-export const {reset} = productsSlice.actions;
+export const {reset,sortNameUp,sortNameDown,sortPriceUp,
+sortPriceDown} = productsSlice.actions;
 export default products;
