@@ -4,7 +4,6 @@ import SignIn from "./Pages/SignIn";
 import Login from "./Pages/Login";
 import ProductForm from "./Pages/BO/ProductForm";
 import Home from './Pages/Homepage';
-import Products from "./Pages/Products";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Components/Navbar/Navbar';
@@ -28,7 +27,6 @@ function App() {
         <BrowserRouter>
         {!isAdminPage && <Navbar />}
             <Routes>
-                <Route path="/products" element={<Products/>}/>
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/register" element={<SignIn/>}/>
                 <Route path="/login" element={<Login/>}/>

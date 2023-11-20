@@ -1,0 +1,21 @@
+.gradient-custom {
+  background: #6a11cb !important;
+  background: -webkit-linear-gradient(to top, rgb(3, 36, 50), rgb(13, 110, 253)) !important;
+  background: linear-gradient(to top, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1)) !important;
+}
+.card{
+  border: 1px solid rgba(0,0,0,.125)!important;
+  border-radius: .50rem!important;
+  box-shadow: 0 0 1px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.1)!important;
+}
+
+
+.custom-link{
+  color: #fff !important;
+}
+.custom-link-dark{
+  color: #000000 !important;
+}
+a{
+  text-decoration: none !important;
+}

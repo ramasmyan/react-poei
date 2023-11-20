@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {registerUser, reset} from "../Features/auth/authSlice"
 import "../Assets/style/signin.scss"
+import "../Assets/style/login.scss";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 function SignIn() {
