@@ -1,6 +1,22 @@
-import React from 'react';
+import './ProductCard.scss';
+import React, {useEffect, useState} from 'react';
+import {toast} from "react-toastify";
+import cartService from '../../Services/CartService';
 
 const ProductCard = (props) => {
+    const [products, setProducts] = useState([])
+    useEffect(() => {
+        setProducts(props.products)
+    }, [props.products])
+    function add(e) {
+        products.find((product) => {
+            if (product._id === e.target.dataset.id) {
+                const newProduct = {...product, quantity: 1}
+                cartService.addToCart(newProduct)
+                toast.success("Product added to cart")
+            }
+        })
+    }
     return (
         <div className="m-div-product second-line" id={props.id}>
         <div className="d-flex justify-content-center h-50">
@@ -12,7 +28,7 @@ const ProductCard = (props) => {
                 <p>{props.name}</p>
             </div>
             <div className="justify-content-between d-flex position-relative place-end price-btn">
-                <b className="pl-2 m-text">$ {props.price}<button className="ml-auto align-self-end btn-add-cart" data-id={props.id}><span>+</span></button></b>
+                <b className="pl-2 m-text">$ {props.price}<button className="ml-auto align-self-end btn-add-cart" data-id={props._id} onClick={(e)=>add(e)}>+</button></b>
             </div>
         </div>
     </div>
