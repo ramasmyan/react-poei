@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchProductsById } from '../../Services/ProductManager';
+import SideNavBar from '../../Components/BO/SideNavBar/SideNavBar';
+import { useParams } from 'react-router-dom';
 
 const ProductForm = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +14,8 @@ const ProductForm = () => {
     size: '',
     file: [],
   });
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { id } = useParams();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -31,11 +35,25 @@ const ProductForm = () => {
     }
   };
 
-
+  useEffect(() => {
+    if (id) {
+      fetchProductsById(id).then((product) => {
+        setFormData({
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          category: product.category,
+          brand: product.brand,
+          color: product.color,
+          size: product.size,
+          file: product.file
+        });
+      })
+    }
+  },[])
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log(formData);
     const formDataToSend = new FormData();
 
     for (const key in formData) {
@@ -45,6 +63,7 @@ const ProductForm = () => {
     console.log(formData, formDataToSend);
 
     // Ensuite, utilisez fetch pour envoyer les données au serveur
+    if (id === undefined) {
     fetch('http://localhost:3000/products', {
       method: 'POST',
       body: formDataToSend,
@@ -52,12 +71,27 @@ const ProductForm = () => {
     .then(response => response.json())
     .then(data => console.log("DATA:" , data))
     .catch(error => console.error('Erreur lors de l\'envoi des données :', error, formDataToSend));
-    };
-
+    } else {
+      fetch(`http://localhost:3000/products/${id}`, {
+        method: 'PUT',
+        body: formDataToSend,
+      })
+      .then(response => response.json())
+      .then(data => console.log("DATA:" , data))
+      .catch(error => console.error('Erreur lors de l\'envoi des données :', error, formDataToSend));
+    }
+  }
 
 
   return (
-    <form       
+    <div>
+    <SideNavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
+    <div className="height-100 bg-light" onClick={() => setIsSidebarOpen(false)} style={{marginLeft: '100px'}}>
+      <h4>{
+          id === undefined ? 'Ajouter un produit' : 'Modifier un produit'
+        }</h4>
+      <div className='container'>
+      <form
     style={{
         display: 'flex',
         flexDirection: 'column',
@@ -144,6 +178,9 @@ const ProductForm = () => {
       <button type="submit" className="btn btn-primary btn-block btn-large" id="submitPl">Submit</button>
 
     </form>
+    </div>
+    </div>
+  </div>
   );
 };
 

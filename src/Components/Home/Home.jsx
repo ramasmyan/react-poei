@@ -31,8 +31,6 @@ function Home(props) {
 
   React.useEffect(() => {
     const getProducts = async () => {
-      // Remplacez cette ligne avec votre propre logique pour récupérer les produits
-      // par exemple, si vous avez une fonction fetchProducts, utilisez-la ici
       const fetchedProducts = await fetchProducts(); 
       const filteredProducts = await filterProducts(fetchedProducts, filters);
       setProducts(filteredProducts);
