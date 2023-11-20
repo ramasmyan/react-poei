@@ -17,7 +17,9 @@ const NavBar = () => {
         <div id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row text-right align-items-baseline" id="navbar-desktop">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Products</a>
+            <Link to="/" className="nav-link active" aria-current="page" >
+            Products
+            </Link>              
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Wishlist</a>
