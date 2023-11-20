@@ -10,11 +10,7 @@ function CartPage(props) {
     const products = cartService.getCart()
 
     return (
-<<<<<<< HEAD
       <div className="container-cart">
-=======
-      <div className="container">
->>>>>>> 65a69b59ab924bbdd5cedbd71007b197e7234030
         <Cart products={products}/>
       </div>
     );

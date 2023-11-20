@@ -4,11 +4,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {loginUser, reset} from "../Features/auth/authSlice";
-<<<<<<< HEAD
 import "../Assets/style/login.scss";
-=======
-import "../Assets/style/signin.scss";
->>>>>>> 65a69b59ab924bbdd5cedbd71007b197e7234030
 
 function Login() {
     const [formData, setFormData] = useState(
