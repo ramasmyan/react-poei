@@ -7,6 +7,32 @@ const fetchProducts = async () => {
     .catch((error) => console.error('Erreur lors du chargement du JSON :', error));
 }
 
+const fetchProductsById = async (id) => {
+  return fetch(`http://localhost:3000/products/${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => console.error('Erreur lors du chargement du JSON :', error));
+}
+
+const deleteProduct = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:3000/products/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Erreur lors de la suppression du produit :', error);
+    throw error;
+  }
+}
+
   const filterProducts = async (products, filters) => {
     let filteredProducts = products;
 
@@ -19,7 +45,7 @@ const fetchProducts = async () => {
         return products.slice().sort((a, b) => b.price - a.price);
       } else if (filters.sortBy === 'ascPrice') {
         return products.slice().sort((a, b) => a.price - b.price);
-      } 
+      }
     }
 
     if (filters.category) {
@@ -54,11 +80,13 @@ const filterByColor = async (colorFilter, product) => {
 }
 
 
-export default fetchProducts; 
+export default fetchProducts;
 
 export {
   filterProducts,
   filterByCategory,
   filterByBrand,
-  filterByColor
+  filterByColor,
+  fetchProductsById,
+  deleteProduct
 };

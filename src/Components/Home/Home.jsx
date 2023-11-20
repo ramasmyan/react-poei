@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Home.scss';
 import ProductCard from '../ProductCard/ProductCard';
 import Yeezy from '../../Assets/img/models/yeezy.glb';
@@ -10,9 +10,10 @@ function Home(props) {
 
   const [products, setProducts] = React.useState([]);
   const [filters, setFilters] = React.useState({
-    sortBy: null,
-    brands: [],
-    color: null,
+    sortBy: null, // 'ascPrice', 'descPrice', 'ascName', 'descName', etc.
+    category: null, // 'Outdoor', 'Tennis', 'Running', etc.
+    brands: [], // ['Nike', 'Adidas', 'New Balance', 'Vans', etc.]
+    color: null, // 'Orange', 'Green', 'Red', etc.
   });
   const [searchTerm, setSearchTerm] = React.useState('');
 
@@ -31,16 +32,14 @@ function Home(props) {
 
   React.useEffect(() => {
     const getProducts = async () => {
-      // Remplacez cette ligne avec votre propre logique pour récupérer les produits
-      // par exemple, si vous avez une fonction fetchProducts, utilisez-la ici
-      const fetchedProducts = await fetchProducts(); 
+      const fetchedProducts = await fetchProducts();
       const filteredProducts = await filterProducts(fetchedProducts, filters);
       setProducts(filteredProducts);
     };
 
     getProducts();
     }, [filters]);
-  
+
     const resetFilters = () => {
       // Définissez les valeurs initiales pour vos filtres ici
       const initialFilters = {
@@ -49,7 +48,7 @@ function Home(props) {
         brands: [],
         color: "",
       };
-  
+
       // Mettez à jour l'état des filtres avec les valeurs initiales
       setFilters(initialFilters);
       console.log(filters);
@@ -60,8 +59,8 @@ function Home(props) {
             <div>
                 <h2 className="a-h2-title">Products</h2>
             </div>
-            <HomeFilters 
-            setFilters={setFilters} 
+            <HomeFilters
+            setFilters={setFilters}
             filters={filters}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}

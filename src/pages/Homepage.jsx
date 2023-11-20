@@ -1,24 +1,16 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getData} from "../Features/products/productsService";
 import Home from '../Components/Home/Home';
-
-
-
-function Homepage(props) {
-    const productState = useSelector(state => state.products);
-    const dispatch = useDispatch();
-    const products = productState.data
-
-
-    React.useEffect(() => {
-        dispatch(getData());
-    },[dispatch])
+import {fetchAllProducts, reset} from "../Features/products/productsSlice";
+import {toast} from "react-toastify";
+import ProductComponent from "../Components/ProductComponent";
+function Homepage() {
 
     return (
-      <div className="container">
-        <Home products={products}/>
-      </div>
+       <>
+         <Home />
+       </>
+
     );
 }
 

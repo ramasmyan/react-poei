@@ -5,7 +5,6 @@ import CartProduct from '../CartProduct/CartProduct';
 
 const Cart = () => {
     const [products, setCartItems] = useState([]);
-    
     const handleIncrement = (productId) => {
       setCartItems((prevProducts) =>
         prevProducts.map((product) =>
