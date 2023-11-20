@@ -40,7 +40,7 @@ function App() {
                 <Route path="/admin/products/add" element={<ProductForm />} />
                 <Route path="/admin/chat" element={<ChatApp />} />
             </Routes>  
-        <Footer />      
+        {!isAdminPage && <Footer />}
         </BrowserRouter>
         <ToastContainer/>
         
