@@ -36,7 +36,7 @@ function ChartPage(props) {
   return (
     <div>
         <SideNavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
-        <div className="height-100 bg-light chart-page" onClick={() => setIsSidebarOpen(false)}>
+        <div className="height-100 bg-light bo-page" onClick={() => setIsSidebarOpen(false)}>
             <div className="d-flex justify-content-between mb-3">
                 <h4>Dashboard</h4>
             </div>

@@ -19,7 +19,7 @@ function BOProductsList(props) {
   return (
     <div>
       <SideNavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
-      <div className="height-100 bg-light" onClick={() => setIsSidebarOpen(false)} style={{marginLeft: '140px'}}>
+      <div className="height-100 bg-light bo-page" onClick={() => setIsSidebarOpen(false)}>
         <div className="d-flex justify-content-between mb-3" style={{width: '85%'}}>
           <h4>Products List</h4>
           <Link to="/admin/products/add" className="btn btn-success" style={{width: '10em'}}>
