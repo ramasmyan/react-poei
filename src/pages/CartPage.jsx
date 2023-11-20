@@ -16,7 +16,7 @@ function CartPage(props) {
     },[dispatch])
 
     return (
-      <div className="container">
+      <div className="container-cart">
         <Cart products={products}/>
       </div>
     );
