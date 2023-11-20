@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {registerUser, reset} from "../Features/auth/authSlice"
 import "../Assets/style/signin.scss"
+import "../Assets/style/login.scss";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 function SignIn() {
@@ -19,7 +20,6 @@ function SignIn() {
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
-        console.log(formData)
     }
     const submit = (e) => {
         e.preventDefault()
@@ -42,32 +42,37 @@ function SignIn() {
     }, [isSuccess, isError, message, dispatch, navigate]);
     return (
         <div>
-            <h1>Sign In</h1>
-            <form className="m-signin-form" method={"POST"} >
-                 <section>
-                     <label htmlFor="firstName">First Name
-                         <input type="text" name="firstName" id="firstName" value={firstName} onChange={onChange}/>
-                     </label>
-                     <label htmlFor="lastName">Last Name
-                         <input type="text" name="lastName" id="lastName" value={lastName} onChange={onChange}/>
-                     </label>
-                 </section>
-                <section>
-                    <label htmlFor="email">Email
-                        <input type="email" name="email" id="email" value={email} onChange={onChange}/>
-                    </label>
-                </section>
-                <section>
-                    <label htmlFor="password">Password
-                        <input type="password" name="password" id="password" value={password} onChange={onChange}/>
-                    </label>
-                    <label htmlFor="confirmPassword">Confirm Password
-                        <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={onChange}/>
-                    </label>
-                </section>
-
-                <button type="submit" onClick={submit}>Submit</button>
-            </form>
+            <section className="vh-100 gradient-custom">
+                <div className="container py-5 h-100">
+                    <div className="row d-flex justify-content-center align-items-center h-100">
+                        <div className="col-12 col-md-8 col-lg-6 col-xl-5 ">
+                            <div className="card bg-white text-dark" ><div className="card-body ">
+                                <div className="mb-md-2 mt-md-4 pb-5">
+                                    <h2 className="fw-bold mb-2 text-uppercase text-center">Login</h2>
+                                    <div className="form-outline form-white mb-2">
+                                        <label htmlFor="firstName">First Name</label>
+                                        <input type="text" name="firstName" id="firstName" value={firstName} onChange={onChange} className="form-control form-control-lg"/>
+                                        <label htmlFor="lastName">Last Name </label>
+                                        <input type="text" name="lastName" id="lastName" value={lastName} onChange={onChange} className="form-control form-control-lg"/>
+                                    </div>
+                                    <div className="form-outline form-white mb-5">
+                                        <label htmlFor="email">Email </label>
+                                        <input type="email" name="email" id="email" value={email} onChange={onChange} className="form-control form-control-lg"/>
+                                        <label htmlFor="password">Password</label>
+                                        <input type="password" name="password" id="password" value={password} onChange={onChange}  className="form-control form-control-lg"/>
+                                        <label htmlFor="confirmPassword">Confirm Password</label>
+                                        <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={onChange} className="form-control form-control-lg"/>
+                                    </div>
+                                    <div className="form-outline form-white text-center">
+                                        <button type="submit" onClick={submit} className="btn btn-outline-primary btn-lg px-4 ">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

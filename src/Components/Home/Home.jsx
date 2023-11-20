@@ -11,6 +11,7 @@ function Home(props) {
   const [products, setProducts] = React.useState([]);
   const [filters, setFilters] = React.useState({
     sortBy: null,
+    category: null,
     brands: [],
     color: null,
   });
