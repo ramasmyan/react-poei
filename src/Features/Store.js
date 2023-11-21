@@ -1,7 +1,7 @@
 import {configureStore,combineReducers} from "@reduxjs/toolkit";
-import counter from "./count/coutSlice";
 import products from "./products/productsSlice";
 import auth from "./auth/authSlice";
+import orders from "./payments/paymentSlice";
 
 
 
@@ -12,7 +12,7 @@ const store = configureStore({
         }
     ),
       reducer: combineReducers({
-          counter,
+          orders,
           products,
           auth
       })
