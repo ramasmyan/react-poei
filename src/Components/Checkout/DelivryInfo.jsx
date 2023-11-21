@@ -21,7 +21,7 @@ const dispatch = useDispatch()
         setFormData({...formData, [e.target.name]: e.target.value});
     }
     const submit = (e) => {
-        console.log(localStorage.getItem("user")    )
+        console.log(localStorage.getItem())
         e.preventDefault()
         if (address === "" || city === "" || zipCode === "" || telephone === "") {
             toast.error("Please fill in all fields")
