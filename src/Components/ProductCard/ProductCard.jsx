@@ -2,20 +2,21 @@ import './ProductCard.scss';
 import React, {useEffect, useState} from 'react';
 import {toast} from "react-toastify";
 import cartService from '../../Services/CartService';
+import { useCart } from '../../Features/cart/CartContext';
 
 const ProductCard = (props) => {
-    const [products, setProducts] = useState([])
+    const [product, setProduct] = useState([])
+    const { addToCart } = useCart();
+
     useEffect(() => {
-        setProducts(props.products)
+        setProduct(props)
     }, [props.products])
     function add(e) {
-        products.find((product) => {
-            if (product._id === e.target.dataset.id) {
-                const newProduct = {...product, quantity: 1}
-                cartService.addToCart(newProduct)
-                toast.success("Product added to cart")
-            }
-        })
+        if (product._id === e.target.dataset.id) {
+            const newProduct = {...product, quantity: 1}
+            addToCart(newProduct);
+            toast.success("Product added to cart")
+        }
     }
     return (
         <div className="m-div-product second-line" id={props.id}>

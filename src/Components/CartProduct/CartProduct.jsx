@@ -3,11 +3,11 @@ import ProductManager from '../../Services/ProductManager';
 import './CartProduct.scss'
 import Cart from '../Cart/Cart';
 
-
 function CartProduct(props) {
 
     const [quantity, setQuantity] = React.useState(1);
     const { id, name, price, image, onIncrement, onDecrement } = props;
+
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
