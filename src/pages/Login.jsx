@@ -42,8 +42,8 @@ function Login() {
 
     return (
 
-        <section className="vh-100 gradient-custom">
-            <div className="container py-5 h-100">
+        <section className="gradient-custom login d-flex justify-content-center">
+            <div className="container py-5 h-100" style={{marginRight: '0px'}}>
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-12 col-md-8 col-lg-6 col-xl-5 ">
                         <div className="card bg-white text-dark" ><div className="card-body p-5 ">

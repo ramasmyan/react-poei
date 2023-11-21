@@ -10,11 +10,11 @@ function StatsCase(props) {
   useEffect(() => {
     if(props.orders) {
         setTotalOrders(props.orders.length);
+        props.orders.map((order) => {
+          setTotalOrderPrice(totalOrderPrice + order.totalPrice);
+      })
     }
 
-    props.orders.map((order) => {
-        setTotalOrderPrice(totalOrderPrice + order.totalPrice);
-    })
 
   }, [props.orders]); 
 

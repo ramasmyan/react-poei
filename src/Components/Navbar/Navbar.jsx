@@ -12,7 +12,6 @@ const NavBar = () => {
   useEffect(() => {
     setCartPrice(cartService.getAllPrice(cartItems));
     setCartQuantity(cartService.getAllQuantity(cartItems));
-    console.log(cartItems);
   }, [cartItems]);
 
   return (

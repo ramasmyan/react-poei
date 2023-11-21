@@ -15,7 +15,7 @@ function ChartPage(props) {
   useEffect(() => {
     const getOrders = async () => {
         const fetchedOrders = await fetchOrders();
-        setOrders(fetchedOrders);
+        setOrders(fetchedOrders.data);
     };
 
     const getProducts = async () => {
@@ -32,6 +32,7 @@ function ChartPage(props) {
     getProducts();
     getOrders();
   }, []); 
+
 
   return (
     <div>

@@ -13,7 +13,7 @@ const registerUser = async (registerForm)=>{
         return data;
     }
 }
-xé
+
 const loginUser = async (loginForm)=>{
     const response =  await axios.post(`${API_URL}/login`,loginForm,
         {
