@@ -12,23 +12,12 @@ import BOProductsList from './Pages/BO/BOProductsList';
 import Footer from './Components/Footer/Footer';
 import ChartPage from './Pages/BO/ChartPage';
 import ChatApp from './Pages/BO/ChatUser';
-import { CartProvider, useCart } from './Features/cart/CartContext';
 
 function App() {
 
     // Obtenez le chemin actuel de l'URL
     const currentPath = window.location.pathname;
     const isAdminPage = currentPath.startsWith('/admin');
-    const { cartItems, addToCart } = useCart();
-
-    useEffect(() => {
-      // Récupérer le panier depuis le localStorage
-      const storedCart = JSON.parse(localStorage.getItem('cart'));
-      console.log(storedCart)
-      if (storedCart) {
-        storedCart.map((item) => addToCart(item , false));
-       }
-    }, []);
   return (
     <div className="App">
       <BrowserRouter>

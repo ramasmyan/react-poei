@@ -5,7 +5,10 @@ const CartContext = createContext();
 
 // Créez le fournisseur de contexte
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    return storedCart;
+  });
 
   const addToCart = (product, isStaged = true) => {
     setCartItems(prevCartItems => {
@@ -18,6 +21,7 @@ export const CartProvider = ({ children }) => {
         );
   
         if (isStaged) {
+          console.log(updatedCart);
           localStorage.setItem('cart', JSON.stringify(updatedCart));
         }
   
@@ -34,10 +38,48 @@ export const CartProvider = ({ children }) => {
       }
     });
   };
+
+  const deleteFromCart = (productId) => {
+    setCartItems(prevCartItems => {
+      const updatedCart = prevCartItems.filter(item => item.id !== productId);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
+
+  const decrementFromCart = (productId) => {
+    setCartItems(prevCartItems => {
+      const existingProduct = prevCartItems.find((item) => item.id === productId);
+
+      if (existingProduct) {
+        // Le produit existe déjà dans le panier, mettez à jour la quantité
+        const updatedCart = prevCartItems.map((item) =>
+          item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
+        );
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        return updatedCart;
+      }
+    }) 
+  };
+
+  const incrementFromCart = (productId) => {
+    setCartItems(prevCartItems => {
+      const existingProduct = prevCartItems.find((item) => item.id === productId);
+
+      if (existingProduct) {
+        // Le produit existe déjà dans le panier, mettez à jour la quantité
+        const updatedCart = prevCartItems.map((item) =>
+          item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+        );
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        return updatedCart;
+      }
+    }) 
+  };
   
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, deleteFromCart, decrementFromCart, incrementFromCart }}>
       {children}
     </CartContext.Provider>
   );

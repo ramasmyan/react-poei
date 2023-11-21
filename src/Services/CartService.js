@@ -43,7 +43,11 @@ class CartService {
             if (cart.length > 1) {
                 return cart ? cart.reduce((total, item) => total + item.price * item.quantity, 0) : 0;
             } else {
-                return cart[0].price * cart[0].quantity;
+                if(cart[0]) {
+                    return cart[0].price * cart[0].quantity;
+                } else {
+                    return cart.price * cart.quantity;
+                }
             }
         }
     }
