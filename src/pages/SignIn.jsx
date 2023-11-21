@@ -51,20 +51,20 @@ function SignIn() {
                                     <h2 className="fw-bold mb-2 text-uppercase text-center">Login</h2>
                                     <div className="form-outline form-white mb-2">
                                         <label htmlFor="firstName">First Name</label>
-                                        <input type="text" name="firstName" id="firstName" value={firstName} onChange={onChange} className="form-control form-control-lg"/>
+                                        <input type="text" name="firstName" id="firstName" value={firstName} onChange={(e)=>onChange(e)} className="form-control form-control-lg"/>
                                         <label htmlFor="lastName">Last Name </label>
-                                        <input type="text" name="lastName" id="lastName" value={lastName} onChange={onChange} className="form-control form-control-lg"/>
+                                        <input type="text" name="lastName" id="lastName" value={lastName} onChange={(e)=>onChange(e)} className="form-control form-control-lg"/>
                                     </div>
                                     <div className="form-outline form-white mb-5">
                                         <label htmlFor="email">Email </label>
-                                        <input type="email" name="email" id="email" value={email} onChange={onChange} className="form-control form-control-lg"/>
+                                        <input type="email" name="email" id="email" value={email} onChange={(e)=>onChange(e)} className="form-control form-control-lg"/>
                                         <label htmlFor="password">Password</label>
-                                        <input type="password" name="password" id="password" value={password} onChange={onChange}  className="form-control form-control-lg"/>
+                                        <input type="password" name="password" id="password" value={password} onChange={(e)=>onChange(e)}  className="form-control form-control-lg"/>
                                         <label htmlFor="confirmPassword">Confirm Password</label>
-                                        <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={onChange} className="form-control form-control-lg"/>
+                                        <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e)=>onChange(e)} className="form-control form-control-lg"/>
                                     </div>
                                     <div className="form-outline form-white text-center">
-                                        <button type="submit" onClick={submit} className="btn btn-outline-primary btn-lg px-4 ">Submit</button>
+                                        <button type="submit" onClick={(e)=>submit(e)} className="btn btn-outline-primary btn-lg px-4 ">Submit</button>
                                     </div>
                                 </div>
                             </div>

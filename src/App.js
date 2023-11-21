@@ -11,7 +11,7 @@ import CartPage from './Pages/CartPage';
 import BOProductsList from './Pages/BO/BOProductsList';
 import Footer from './Components/Footer/Footer';
 import ChartPage from './Pages/BO/ChartPage';
-import ChatApp from './Pages/BO/ChatUser';
+import Checkout from "./Pages/Checkout";
 
 function App() {
 
@@ -32,7 +32,8 @@ function App() {
                 <Route path="/admin/" element={<ChartPage />}/>
                 <Route path="/admin/products/:id" element={<ProductForm />} />
                 <Route path="/admin/products/add" element={<ProductForm />} />
-                <Route path="/admin/chat" element={<ChatApp />} />
+                <Route path="*" element={<h1>404 not found</h1>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
             </Routes>  
         {!isAdminPage && <Footer />}
         </BrowserRouter>

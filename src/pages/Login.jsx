@@ -20,13 +20,16 @@ function Login() {
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     }
+
     const onSubmit = (e) => {
         e.preventDefault();
         dispatch(loginUser(formData))
     }
+
     useEffect(() => {
         if (isSuccess) {
             toast.success("Welcome back " + user.firstName )
+            console.log(localStorage)
             navigate("/")
             dispatch(reset())
         }
@@ -49,11 +52,11 @@ function Login() {
                                 <p className="text-dark-50 mb-4 text-center">Please enter your login and password!</p>
                                 <div className="form-outline form-white mb-2">
                                     <label htmlFor="email" className="form-label">Email </label>
-                                    <input type="email" name="email" id="email" value={email} onChange={onChange} className="form-control form-control-lg"/>
+                                    <input type="email" name="email" id="email" value={email} onChange={(e)=>onChange(e)} className="form-control form-control-lg"/>
                                 </div>
                                 <div className="form-outline form-white mb-2">
                                     <label htmlFor="password" className="form-label">Password</label>
-                                    <input type="password" name="password" id="password" value={password} onChange={onChange} className="form-control form-control-lg"/>
+                                    <input type="password" name="password" id="password" value={password} onChange={(e)=>onChange(e)} className="form-control form-control-lg"/>
                                 </div>
                                 <p className="small mb-5 pb-lg-2"><a className="text-dark-50" href="#!">Forgot password?</a></p>
                                 <div className="text-center">
