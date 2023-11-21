@@ -34,7 +34,9 @@ const NavBar = () => {
             </Link>              
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Wishlist</a>
+            <Link to="/support" className="nav-link " aria-current="page" >
+            Support
+            </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Account</a>

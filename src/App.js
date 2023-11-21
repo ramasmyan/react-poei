@@ -12,6 +12,7 @@ import BOProductsList from './Pages/BO/BOProductsList';
 import Footer from './Components/Footer/Footer';
 import ChartPage from './Pages/BO/ChartPage';
 import Checkout from "./Pages/Checkout";
+import ChatPage from './Pages/ChatPage';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         {!isAdminPage && <Navbar />}
             <Routes>
                 <Route path="/cart" element={<CartPage/>}/>
+                <Route path="/support" element={<ChatPage/>}/>
                 <Route path="/register" element={<SignIn/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/form" element={<ProductForm/>}/>
