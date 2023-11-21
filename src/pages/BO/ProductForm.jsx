@@ -59,9 +59,6 @@ const ProductForm = () => {
     for (const key in formData) {
       formDataToSend.append(key, formData[key]);
     }
-
-    console.log(formData, formDataToSend);
-
     // Ensuite, utilisez fetch pour envoyer les données au serveur
     if (id === undefined) {
     fetch('http://localhost:3000/products', {

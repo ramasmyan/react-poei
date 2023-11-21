@@ -1,50 +1,29 @@
 import React, { useState,useEffect } from 'react';
 import './Cart.scss';
-import ProductManager from '../../Services/ProductManager';
+import { useCart } from '../../Features/cart/CartContext';
 import CartProduct from '../CartProduct/CartProduct';
 
 const Cart = () => {
-    const [products, setCartItems] = useState([]);
-    
-    const handleIncrement = (productId) => {
-      setCartItems((prevProducts) =>
-        prevProducts.map((product) =>
-          product._id === productId ? { ...product, quantity: product.quantity + 1 } : product
-        )
-      );
-    };
-  
-    const handleDecrement = (productId) => {
-      setCartItems((prevProducts) =>
-        prevProducts.map((product) =>
-          product._id === productId && product.quantity > 0
-            ? { ...product, quantity: product.quantity - 1 }
-            : product
-        )
-      );
-    };
-    
-  
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //           const productManager = new ProductManager();
-    //           const result = await productManager.fetchProducts();
-    //         } catch (error) {
-    //           console.error('Error fetching products:', error);
-    //         }
-    //       };
-  
-    //   fetchData();
-    // }, []);
+  const { cartItems } = useCart();    
+  const [delivery, setDelivery] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
 
-  // Function to calculate the total cost
-// const calculateTotal = () => {
-//     // Calculate subtotal and update state
-// const newSubtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
-//     setSubtotal(newSubtotal);
-//   };
+  useEffect(() => {
+    let total = 0;
+    cartItems.map((cartItem) => {
+      total = total + (cartItem.price * cartItem.quantity);
+    })
 
+    setSubTotal(total);
+  }, [cartItems])
+
+  useEffect(() => {
+    if(subTotal > 499) {
+      setDelivery(0);
+    } else {
+      setDelivery(50);
+    }
+  }, [subTotal])
 
   return (
     <div style={{ backgroundColor: '#F7F7F9' }}>
@@ -62,16 +41,10 @@ const Cart = () => {
             <div className="boxcart">
             
                     {
-                    products.map((product) => (
+                    cartItems.map((product) => (
                         <CartProduct
-                        key={product._id}
-                        id={product._id}
-                        name={product.name}
-                        price={product.price}
-                        image={product.images}
-                        brand={product.brand}
-                        onIncrement={handleIncrement}
-                        onDecrement={handleDecrement}
+                        key={product.id}
+                        product={product}
                         />         
                     ))}
             </div>           
@@ -80,18 +53,18 @@ const Cart = () => {
         
         <div className="col-md-6" >
             <div className="boxcart">
-            <div className="fature-price">
+            <div className="fature-price d-flex justify-content-between">
               <p className="ptitle1">Subtotal</p>
-              <p className="priceF m-subtotal-right" ></p>
+              <p className="priceF m-subtotal-right" >${subTotal}</p>
             </div>
-            <div className="delivry">
+            <div className="delivry d-flex justify-content-between">
               <p className="ptitle1">Delivery</p>
-              <p className="priceF m-delivry-right"></p>
+              <p className="priceF m-delivry-right">${delivery}</p>
             </div>
             <svg className="linefacture"  viewBox="18 0 300 2" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M1 1H336" stroke="#707B81" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 6" /></svg>
-            <div className="total-facture">
+            <div className="total-facture d-flex justify-content-between">
               <p className="total-title">Total cost</p>
-              <p className="total-price  m-total-right"></p>
+              <p className="total-price  m-total-right">${subTotal + delivery}</p>
             </div>
             <a href="/checkout.html" className="a-btn-link">
               <button className="d-grid gap-2 col-6 mx-auto btn btn-primary" type="button">Checkout</button>

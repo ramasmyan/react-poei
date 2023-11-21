@@ -110,6 +110,11 @@
     }
 
     .shopping-cart-items {
+
+        .clearfix {
+            list-style: none;
+        }
+
         .img {
             float: left;
             margin-right: 12px;
@@ -139,6 +144,10 @@
             margin-left: 78px;
             color: #000;
         }
+        .image {
+            width: 100px;
+            height: 70px;
+          }
     }
 
     &:after {
@@ -203,3 +212,5 @@
         font-size: 45px;
     }
 }
+
+

@@ -2,18 +2,19 @@ import React, {useEffect, useRef, useState} from 'react';
 import './Navbar.scss';
 import { Link } from 'react-router-dom';
 import cartService from "../../Services/CartService";
+import { useCart } from '../../Features/cart/CartContext';
 
 const NavBar = () => {
-    const cart = cartService
-    const [cartItems, setCartItems] = useState(null);
-    const [cartPrice, setCartPrice] = useState(null);
-    const [cartQuantity, setCartQuantity] = useState(null);
-  const ref = useRef(JSON.parse(localStorage.getItem('cart')));
+  const { cartItems } = useCart();
+  const [cartPrice, setCartPrice] = useState(0);
+  const [cartQuantity, setCartQuantity] = useState(0);
+  
   useEffect(() => {
-        setCartItems(JSON.parse(localStorage.getItem('cart')));
-        setCartPrice(cart.getAllPrice());
-        setCartQuantity(cart.getAllQuantity())
-    }, [ref]);
+    setCartPrice(cartService.getAllPrice(cartItems));
+    setCartQuantity(cartService.getAllQuantity(cartItems));
+    console.log(cartItems);
+  }, [cartItems]);
+
   return (
     <nav className="navbar bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -56,14 +57,18 @@ const NavBar = () => {
                   </div>
                   <div>
                     <ul className="shopping-cart-items">
-                      {cartItems ? cartItems.map((product) => (
-                          <li className="clearfix">
-                            <img src={product.images} alt="item1" />
-                            <span className="item-name">{product.name}</span>
-                            <span className="item-price">${product.price}</span>
-                            <span className="item-quantity">Quantity: 01</span>
-                          </li>
-                      )): <p>cart is empty</p>}
+                      { cartItems ? 
+                            cartItems.map((product) => (
+                            <li className="clearfix" key={product._id}>
+                                <img src={product.images} alt="item1" className='image' />
+                                <span className="item-name">{product.name}</span>
+                                <span className="item-price">${product.price}</span>
+                                <span className="item-quantity">Quantity: {product.quantity}</span>
+                            </li>
+                        )):
+                        <p>Cart is empty !</p>
+                      
+                      }
                     </ul>
                   </div>
                   <div>
@@ -106,7 +111,7 @@ const NavBar = () => {
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Cart
-                <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">{cart.getAllQuantity()}</span>
+                <i className="fa fa-shopping-cart cart-icon"></i><span className="badge">{cartQuantity}</span>
               </a>              
               <ul className="dropdown-menu shopping-cart box-background">
                 <div className="shopping-cart">
@@ -119,14 +124,18 @@ const NavBar = () => {
                   </div>
                   <div>
                     <ul className="shopping-cart-items">
-                      {cartItems ? cartItems.map((product) => (
-                      <li className="clearfix">
-                        <img src={product.images} alt="item1" />
-                        <span className="item-name">{product.name}</span>
-                        <span className="item-price">${product.price}</span>
-                        <span className="item-quantity">Quantity: 01</span>
-                        </li>
-                        )): <p>cart is empty</p>}
+                    { cartItems ? 
+                            cartItems.map((product) => (
+                            <li className="clearfix" key={product._id}>
+                                <img src={product.images} alt="item1" className='image'/>
+                                <span className="item-name">{product.name}</span>
+                                <span className="item-price">${product.price}</span>
+                                <span className="item-quantity">Quantity: {product.quantity}</span>
+                            </li>
+                        )):
+                        <p>Cart is empty !</p>
+                      
+                      }
                     </ul>
                   </div>
                   <div>

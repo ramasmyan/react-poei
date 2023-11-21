@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
+import { CartProvider } from './Features/cart/CartContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store  from './Features/Store';
 import {Provider} from 'react-redux';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-    <Provider store={store}>
-        <App />
-    </Provider>
+        <CartProvider>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </CartProvider>
     </React.StrictMode>
 );
 

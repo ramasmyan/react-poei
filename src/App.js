@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import SignIn from "./Pages/SignIn";
 import Login from "./Pages/Login";
@@ -17,14 +17,10 @@ function App() {
 
     // Obtenez le chemin actuel de l'URL
     const currentPath = window.location.pathname;
-
-    // Vérifiez si le chemin actuel est celui des pages d'administration
     const isAdminPage = currentPath.startsWith('/admin');
-
-
   return (
     <div className="App">
-        <BrowserRouter>
+      <BrowserRouter>
         {!isAdminPage && <Navbar />}
             <Routes>
                 <Route path="/cart" element={<CartPage/>}/>
@@ -41,7 +37,6 @@ function App() {
         {!isAdminPage && <Footer />}
         </BrowserRouter>
         <ToastContainer/>
-        
     </div>
   );
 }

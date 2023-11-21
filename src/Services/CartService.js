@@ -1,81 +1,71 @@
-
-class CartService{
-    constructor() {
-
-    }
+class CartService {
+    // Pas besoin de constructeur vide
 
     addToCart(product) {
-       const cart = localStorage.getItem('cart');
-       if(!cart) {
-           product.quantity = 1;
-            const cart = [product]
-           localStorage.setItem('cart',JSON.stringify(cart));
-       }else {
-           const cart = JSON.parse(localStorage.getItem('cart'));
-           const newProduct = cart.find((item) => item._id === product._id);
-              if(newProduct) {
-                  newProduct.quantity += 1;
-                  const newCart = [...cart.filter((item) => item._id !== product._id), newProduct]
-                  localStorage.setItem('cart', JSON.stringify(newCart));
-              }else {
-                    cart.push(product);
-                    localStorage.setItem('cart', JSON.stringify(cart));
-              }
-       }
+        let cart = this.getCartFromLocalStorage();
+        if (!cart) {
+            product.quantity = 1;
+            cart = [product];
+        } else {
+            const existingProduct = cart.find(item => item._id === product._id);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push(product);
+            }
+        }
+        this.saveCartToLocalStorage(cart);
     }
 
     deleteFromCart(id) {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-       const product = cart.find((item) => item._id === id);
-         if(product.quantity > 1) {
-             product.quantity -= 1;
-             localStorage.setItem('cart', JSON.stringify(cart));
-         }else {
-             const newCart = cart.filter((item) => item._id !== id);
-                localStorage.setItem('cart', JSON.stringify(newCart));
-         }
-
-
+        let cart = this.getCartFromLocalStorage();
+        const product = cart.find(item => item._id === id);
+        if (product) {
+            if (product.quantity > 1) {
+                product.quantity -= 1;
+            } else {
+                cart = cart.filter(item => item._id !== id);
+            }
+            this.saveCartToLocalStorage(cart);
+        }
     }
 
     getCart() {
-        const cart = localStorage.getItem('cart');
-        if(cart){
-             return JSON.parse(cart);
-        }else {
-           return null;
-        }
+        return this.getCartFromLocalStorage() || [];
     }
+
     deleteCart() {
         localStorage.removeItem('cart');
     }
-    getAllPrice() {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        if(cart) {
-            let total = 0;
-            cart.forEach((item) => {
-                total += item.price * item.quantity;
-            })
-            return total;
-        }else {
-            return 0;
+
+    getAllPrice(cart) {
+        if (cart) {
+            if (cart.length > 1) {
+                return cart ? cart.reduce((total, item) => total + item.price * item.quantity, 0) : 0;
+            } else {
+                if(cart[0]) {
+                    return cart[0].price * cart[0].quantity;
+                } else {
+                    return cart.price * cart.quantity;
+                }
+            }
         }
     }
-    getAllQuantity() {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        if(cart) {
-            let total = 0;
-            cart.forEach((item) => {
-                total += item.quantity;
-                console.log(item.quantity)
-            })
 
-            return total;
-        }else {
-            return 0;
-        }
+    getAllQuantity(cart) {
+        return cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
+    }
+
+    // Méthodes privées
+    getCartFromLocalStorage() {
+        const cart = localStorage.getItem('cart');
+        return cart ? JSON.parse(cart) : null;
+    }
+
+    saveCartToLocalStorage(cart) {
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 }
 
-const  cartService = new CartService();
+const cartService = new CartService();
 export default cartService;
