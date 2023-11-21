@@ -58,6 +58,14 @@ function SideNavBar(props) {
               <i className='bx bx-store-alt nav_icon'></i>
               <span className="nav_name">Products</span>
             </Link>
+            <Link
+              to='/admin/chat'
+              className={`nav_link ${activeLink === 'chat' ? 'active' : ''}`}
+              onClick={() => handleLinkClick('chat')}
+            >
+              <i className='bx bx-chat nav_icon'></i>
+              <span className="nav_name">Chat Live</span>
+            </Link>
           </div>
           <Link to='/' className="nav_link d-flex" key={2}>
             <i className='bx bx-log-out nav_icon'></i> 

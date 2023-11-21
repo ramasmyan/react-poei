@@ -3,7 +3,7 @@ import ChatMsgs from '../Components/ChatMsgs/ChatMsgs';
 
 function ChatPage  ()  {
   return (
-    <div>
+    <div style={{marginTop: '140px'}}>
       <ChatMsgs />
     </div>
   );
