@@ -10,7 +10,6 @@ function Homepage(props) {
     const dispatch = useDispatch();
     const products = productState.data
 
-
     React.useEffect(() => {
         dispatch(getData());
     },[dispatch])

@@ -13,7 +13,6 @@ function DelivryInfo() {
         zipCode: "",
         telephone: "",
     });
-    localStorage.clear()
     const {address,city,zipCode,telephone} = formData;
 const dispatch = useDispatch()
     let {user,isSuccess, isError, message} = useSelector((state) => state.auth);
