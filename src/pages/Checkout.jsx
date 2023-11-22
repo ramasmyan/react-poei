@@ -8,33 +8,47 @@ import {queries} from "@testing-library/react";
 
 function Checkout(props) {
     const [message, setMessage] = useState("");
-
+    const storedCart = JSON.parse(localStorage.getItem('cart'))
+    const [total, setTotal] = useState(0)
+    const [subtotal, setSubtotal] = useState(0)
+    const [delivery, setDelivery] = useState(0)
+    useEffect(() => {
+        if (storedCart) {
+            let total = 0
+            let subtotal = 0
+            let delivery = 0
+            storedCart.forEach((item) => {
+                subtotal += item.quantity * item.price
+            })
+            setSubtotal(subtotal)
+            if (subtotal < 500 )  {
+                delivery = 50
+            }
+            setDelivery(delivery)
+            total = subtotal + delivery
+            setTotal(total)
+        }
+    }, [storedCart])
 
     return (
         <div className="m-checkout-page   container">
             <div className="row container-fluid m-checkout-block ">
-
-                <div className="col-md-6 container-fluid">
+                <div className="col-md-6 container-fluid m-cont">
                     <DelivryInfo/>
                 </div>
-                <div className="col-md-6 container-fluid">
-
-                        <div className="m-recap-command">
-                        </div>
-                        <div className="m-contact-information-form ">
-                            <div className="payment-detail">
-                                <section><p className="m-subtotal-left">Subtotal</p><span className="m-subtotal-right"></span></section>
-                                <section><p className="m-delivry-left">Delivery</p><span className="m-delivry-right"></span></section>
+                <div className="col-md-6 container-fluid m-cont">
+                        <div className=" ">
+                                <div className="a-tatal"><p >Subtotal</p><span className="">{subtotal} €</span></div>
+                                <div className="a-tatal"><p >Delivery</p><span className="">{delivery} €</span></div>
                                 <div className="a-payment-line"></div>
-                                <section><p className="m-total-left"><strong>Total Cost</strong></p><strong><p className="m-total-right"></p></strong></section>
+                                <div className="a-tatal"><p ><strong>Total Cost</strong></p><strong><p className="m-total-right">{total} €</p></strong></div>
                                 {message ? (
-                                    <section>
+                                    <div>
                                         <p>{message}</p>
-                                    </section>
+                                    </div>
                                 ) : (
                                     <Stripe />
                                 )}
-                            </div>
 
                         </div>
                 </div>

@@ -20,7 +20,6 @@ const dispatch = useDispatch()
         setFormData({...formData, [e.target.name]: e.target.value});
     }
     const submit = (e) => {
-        console.log(localStorage.getItem())
         e.preventDefault()
         if (address === "" || city === "" || zipCode === "" || telephone === "") {
             toast.error("Please fill in all fields")
@@ -43,7 +42,7 @@ const dispatch = useDispatch()
         <div className="container">
             <div className="row mx-0 justify-content-center">
 
-                    <form>
+                    <div>
 
                         <label className="d-block mb-1">
                             <span className="form-label d-block">Address </span>
@@ -90,7 +89,7 @@ const dispatch = useDispatch()
 
 
 
-                    </form>
+                    </div>
 
             </div>
         </div>

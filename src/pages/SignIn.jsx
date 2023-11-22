@@ -47,8 +47,8 @@ function SignIn() {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12 col-md-8 col-lg-6 col-xl-5 ">
                             <div className="card bg-white text-dark" ><div className="card-body ">
-                                <div className="mb-md-2 mt-md-4 pb-5">
-                                    <h2 className="fw-bold mb-2 text-uppercase text-center">Login</h2>
+                                <div className="mb-md-2 mt-md-4=2 pb-5">
+                                    <h2 className="fw-bold mb-2 text-uppercase text-center">REGISTER</h2>
                                     <div className="form-outline form-white mb-2">
                                         <label htmlFor="firstName">First Name</label>
                                         <input type="text" name="firstName" id="firstName" value={firstName} onChange={(e)=>onChange(e)} className="form-control form-control-lg"/>
