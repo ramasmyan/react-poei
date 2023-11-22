@@ -5,6 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import { loginUser, reset } from "../Features/auth/authSlice";
 import "../Assets/style/login.scss";
+import "../Assets/style/signin.scss";
 
 function Login() {
     const [formData, setFormData] = useState(
@@ -41,7 +42,6 @@ function Login() {
 
 
     return (
-
         <section className="gradient-custom login d-flex justify-content-center">
             <div className="container py-5 h-100" style={{marginRight: '0px'}}>
                 <div className="row d-flex justify-content-center align-items-center h-100">

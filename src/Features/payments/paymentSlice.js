@@ -30,20 +30,17 @@ export const getOrders = createAsyncThunk(
 
 const initialState = {
     orders: [],
-    clientSecret: null,
     isLoading: false,
     isError: null,
     isSuccess: false,
     message: null,
 };
-
 const OrderSlice = createSlice({
     name: 'orders',
     initialState,
     reducers: {
         reset: (state) => {
             state.isSuccess = false;
-            state.clientSecret = null;
             state.message = null;
             state.isError = null;
             state.isLoading = false;
@@ -56,8 +53,6 @@ const OrderSlice = createSlice({
         builder.addCase(createOrder.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
-            state.clientSecret = action.payload.clientSecret;
-            state.message = action.payload.message;
         });
         builder.addCase(createOrder.rejected, (state, action) => {
             state.isLoading = false;
@@ -69,8 +64,8 @@ const OrderSlice = createSlice({
         builder.addCase(getOrders.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
-            state.orders = action.payload.orders;
-            state.message = action.payload.message;
+            state.orders = action.payload;
+            state.message = "Orders fetched successfully";
         });
         builder.addCase(getOrders.rejected, (state, action) => {
             state.isLoading = false;

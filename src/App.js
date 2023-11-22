@@ -12,6 +12,8 @@ import BOProductsList from './Pages/BO/BOProductsList';
 import Footer from './Components/Footer/Footer';
 import ChartPage from './Pages/BO/ChartPage';
 import Checkout from "./Pages/Checkout";
+import PaymentSuccess from "./Pages/PaymentSuccess";
+import Orders from "./Pages/Orders";
 import ChatPage from './Pages/ChatPage';
 import ChatApp from './Pages/BO/ChatApp';
 
@@ -20,14 +22,13 @@ function App() {
     // Obtenez le chemin actuel de l'URL
     const currentPath = window.location.pathname;
     const isAdminPage = currentPath.startsWith('/admin');
-    const isLoginPage = currentPath.startsWith('/login');
-    const isRegisterPage = currentPath.startsWith('/register');
-
   return (
     <div className="App">
       <BrowserRouter>
-      {!(isAdminPage || isLoginPage || isRegisterPage) && <Navbar />}
+        {!isAdminPage && <Navbar />}
             <Routes>
+                <Route path="/order" element={<Orders/>}/>
+                <Route path="/success" element={<PaymentSuccess/>}/>
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/support" element={<ChatPage/>}/>
                 <Route path="/register" element={<SignIn/>}/>
@@ -42,7 +43,7 @@ function App() {
                 <Route path="*" element={<h1>404 not found</h1>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
             </Routes>  
-            {!(isAdminPage || isLoginPage || isRegisterPage) && <Footer />}
+        {!isAdminPage && <Footer />}
         </BrowserRouter>
         <ToastContainer/>
     </div>

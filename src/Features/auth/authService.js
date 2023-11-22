@@ -25,6 +25,7 @@ const loginUser = async (loginForm)=>{
     const data = await response.data;
     if (response.status === 200) {
         localStorage.setItem('user',JSON.stringify(data.data));
+        console.log("data",localStorage)
         return data;
     }
 }
@@ -34,27 +35,26 @@ const logout = ()=>{
 
 const updateProfile = async (updateForm)=>{
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
-    if(user){
-        const response =  await axios.put(`${API_URL}/${user._id}`,updateForm,
+
+    if(user) {
+        const newUser = {...user}
+        newUser.adress = [updateForm]
+        console.log("user", newUser)
+        const response = await axios.put(`${API_URL}/${user._id}`, newUser,
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+                    'authorization': `Bearer ${user.token}`
                 }
-            });
+            }
+        );
         const data = await response.data;
         if (response.status === 200) {
-            const user = localStorage.getItem('user');
-            const newUser = {...JSON.parse(user),...data.data};
-            localStorage.setItem('user',JSON.stringify(newUser));
-            return newUser;
+            localStorage.setItem('user', JSON.stringify(newUser));
+            return data;
         }
-    }else {
-        return new Error("User not found");
+
     }
-
-
 }
 
 

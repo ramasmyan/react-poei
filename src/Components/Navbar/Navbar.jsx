@@ -60,7 +60,7 @@ const NavBar = () => {
                     <ul className="shopping-cart-items">
                       { cartItems ? 
                             cartItems.map((product) => (
-                            <li className="clearfix" key={product._id}>
+                            <li className="clearfix" key={product.id}>
                                 <img src={product.images} alt="item1" className='image' />
                                 <span className="item-name">{product.name}</span>
                                 <span className="item-price">${product.price}</span>
@@ -127,7 +127,7 @@ const NavBar = () => {
                     <ul className="shopping-cart-items">
                     { cartItems ? 
                             cartItems.map((product) => (
-                            <li className="clearfix" key={product._id}>
+                            <li className="clearfix" key={product.id}>
                                 <img src={product.images} alt="item1" className='image'/>
                                 <span className="item-name">{product.name}</span>
                                 <span className="item-price">${product.price}</span>
