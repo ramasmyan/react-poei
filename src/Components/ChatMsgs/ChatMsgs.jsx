@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './ChatMsgs.scss';
 import io from 'socket.io-client';
 import fetchMessagesFromServer from '../../Features/chat/messageChat';
+import ReactEmoji from 'react-emoji';
 
 const ChatMsgs = () => {
   const socket = io('http://62.72.18.39:3001');
@@ -67,7 +68,7 @@ const ChatMsgs = () => {
                           className="p-3 ms-3 small mb-0"
                           key={index}
                         >
-                          <p>{msg.message}</p>
+                          <p>{ReactEmoji.emojify(msg.message)}</p>
                         </div>
                       )): null}
                     </div>
