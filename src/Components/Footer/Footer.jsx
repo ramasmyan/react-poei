@@ -1,5 +1,7 @@
 import React from 'react';
 import './Footer.scss'; 
+import { Link } from 'react-router-dom';
+
 
 const Footer = () => {
   return (
@@ -9,7 +11,11 @@ const Footer = () => {
           <a href="#"><i className="icon ion-social-facebook"></i></a>
           <a href="#"><i className="icon ion-social-instagram"></i></a>
           <a href="#"><i className="icon ion-social-snapchat"></i></a>
-          <a href="#"><i className="icon ion-social-twitter"></i></a>
+          <Link
+              to='/admin'
+            >
+              <i className="icon ion-social-twitter"></i>
+          </Link>
         </div>
         <ul className="list-inline">
           <li className="list-inline-item"><a href="#">Home</a></li>

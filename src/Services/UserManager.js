@@ -1,5 +1,5 @@
 const fetchUsers = async () => {
-    return fetch('http://localhost:3000/users')
+    return fetch('http://62.72.18.39:3000/users')
       .then((response) => response.json())
       .then((data) => {
         return data;

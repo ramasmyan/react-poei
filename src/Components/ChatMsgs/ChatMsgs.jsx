@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import fetchMessagesFromServer from '../../Features/chat/messageChat';
 
 const ChatMsgs = () => {
-  const socket = io('http://localhost:3001');
+  const socket = io('http://62.72.18.39:3001');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
@@ -34,8 +34,13 @@ const ChatMsgs = () => {
   });
 
   const sendMessage = () => {
+    let id = '655d0dfd95c9823ea4946bc4';
+
+    if(user) {
+      id = user.id;
+    }
     // Envoyer le message au serveur
-    socket.emit('chat message', { message, userId: user._id });
+    socket.emit('chat message', { message, userId: id });
     setMessages(messages);
     setMessage('');
   };

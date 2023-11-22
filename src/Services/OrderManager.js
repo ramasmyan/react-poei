@@ -1,5 +1,5 @@
 const fetchOrders = async () => {
-    return fetch('http://localhost:3000/orders')
+    return fetch('http://62.72.18.39:3000/orders')
       .then((response) => response.json())
       .then((data) => {
         return data;

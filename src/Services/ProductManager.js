@@ -1,5 +1,5 @@
 const fetchProducts = async () => {
-  return fetch('http://localhost:3000/products')
+  return fetch('http://62.72.18.39:3000/products')
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -8,7 +8,7 @@ const fetchProducts = async () => {
 }
 
 const fetchProductsById = async (id) => {
-  return fetch(`http://localhost:3000/products/${id}`)
+  return fetch(`http://62.72.18.39:3000/products/${id}`)
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -18,7 +18,7 @@ const fetchProductsById = async (id) => {
 
 const deleteProduct = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/products/${id}`, {
+    const response = await fetch(`http://62.72.18.39:3000/products/${id}`, {
       method: 'DELETE',
     });
 

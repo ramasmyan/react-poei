@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:3000/orders"
+const API_URL = "http://62.72.18.39:3000/orders"
 
 const createOrder = async (orderForm)=>{
     const response =  await axios.post(`${API_URL}/create`,orderForm,

@@ -61,7 +61,7 @@ const ProductForm = () => {
     }
     // Ensuite, utilisez fetch pour envoyer les données au serveur
     if (id === undefined) {
-    fetch('http://localhost:3000/products', {
+    fetch('http://62.72.18.39:3000/products', {
       method: 'POST',
       body: formDataToSend,
     })
@@ -69,7 +69,7 @@ const ProductForm = () => {
     .then(data => console.log("DATA:" , data))
     .catch(error => console.error('Erreur lors de l\'envoi des données :', error, formDataToSend));
     } else {
-      fetch(`http://localhost:3000/products/${id}`, {
+      fetch(`http://62.72.18.39:3000/products/${id}`, {
         method: 'PUT',
         body: formDataToSend,
       })
