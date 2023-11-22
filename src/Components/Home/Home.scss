@@ -35,14 +35,7 @@ nav {
     max-height: 61px !important;
 }
 
-section {
-    margin: 90px 4em;
-}
-
 @media only screen and (max-width: 768px) {
-    section {
-        margin: 70px 1.5em;
-    }
 
     .m-div-filters {
         flex-wrap: nowrap !important;
