@@ -11,6 +11,7 @@ function StatsCase(props) {
     if(props.orders) {
         setTotalOrders(props.orders.length);
         props.orders.map((order) => {
+          console.log(order);
           setTotalOrderPrice(totalOrderPrice + order.totalPrice);
       })
     }
